@@ -141,4 +141,999 @@
       <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
           <h2 class="text-2xl font-bold text-white">Kho Tài Khoản Game</h2>
-          <p class="text-xs text-slate-400 mt-1">Chọn tài khoản ưng ý và thanh toán tự động bằng
+          <p class="text-xs text-slate-400 mt-1">Chọn tài khoản ưng ý và thanh toán tự động bằng số dư trên shop</p>
+        </div>
+        <div class="flex flex-wrap gap-2">
+          <select id="filter-category" onchange="renderAccounts()" class="px-3 py-2 rounded-xl bg-slate-900 border border-slate-700 text-sm text-white">
+            <option value="ALL">Tất cả danh mục</option>
+            <option value="Liên Quân">Liên Quân Mobile</option>
+            <option value="Free Fire">Free Fire</option>
+            <option value="Roblox">Roblox</option>
+            <option value="Valorant">Valorant / PC</option>
+            <option value="Khác">Game Khác</option>
+          </select>
+          <input type="text" id="search-acc" oninput="renderAccounts()" placeholder="Tìm kiếm mã acc, tướng..." class="px-3 py-2 rounded-xl bg-slate-900 border border-slate-700 text-sm text-white w-48 sm:w-60" />
+        </div>
+      </div>
+      <div id="all-accounts-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5"></div>
+    </section>
+
+    <!-- TAB: LUCKY WHEEL -->
+    <section id="tab-wheel" class="tab-section hidden">
+      <div class="max-w-3xl mx-auto glass-card rounded-2xl p-6 sm:p-8 text-center space-y-6">
+        <div>
+          <span class="px-3 py-1 rounded-full text-xs font-bold bg-amber-500/20 text-amber-300">THỬ VẬN MAY</span>
+          <h2 class="text-2xl font-extrabold text-white mt-2">Vòng Quay Siêu Cấp TTMShop</h2>
+          <p class="text-xs text-slate-400 mt-1">Giá mỗi lượt quay: <strong class="text-sky-400">20.000đ</strong> — Trúng thưởng cộng thẳng vào số dư hoặc nhận mã quà tặng!</p>
+        </div>
+
+        <div class="relative w-72 h-72 sm:w-80 sm:h-80 mx-auto flex items-center justify-center">
+          <div class="absolute -top-2 z-20 wheel-pointer"></div>
+          <canvas id="wheel-canvas" width="320" height="320" class="rounded-full border-4 border-sky-500/40 shadow-2xl transition-transform duration-[4000ms] ease-out"></canvas>
+          <button id="spin-btn" onclick="spinWheel()" class="absolute z-10 w-16 h-16 rounded-full bg-gradient-to-br from-amber-400 to-orange-600 text-slate-950 font-extrabold text-xs shadow-xl border-2 border-white hover:scale-105 transition">
+            QUAY
+          </button>
+        </div>
+
+        <div id="wheel-result" class="text-sm font-semibold text-slate-300 min-h-[24px]">
+          Bấm nút QUAY ở chính giữa để thử vận may ngay!
+        </div>
+      </div>
+    </section>
+
+    <!-- TAB: TOPUP -->
+    <section id="tab-topup" class="tab-section hidden">
+      <div class="max-w-4xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div class="glass-card rounded-2xl p-6 space-y-4">
+          <h3 class="text-lg font-bold text-white">1. Thông Tin Chuyển Khoản</h3>
+          <p class="text-xs text-slate-400">Quét mã QR hoặc chuyển khoản đúng nội dung bên dưới, sau đó gửi xác nhận để Admin duyệt cộng tiền.</p>
+          
+          <div class="bg-slate-900/90 p-4 rounded-xl border border-slate-800 space-y-2.5 text-sm">
+            <div class="flex justify-between">
+              <span class="text-slate-400">Ngân hàng:</span>
+              <span class="font-bold text-sky-400" id="display-bank-name">MB Bank</span>
+            </div>
+            <div class="flex justify-between">
+              <span class="text-slate-400">Số tài khoản:</span>
+              <span class="font-bold text-white select-all" id="display-bank-acc">0988888888</span>
+            </div>
+            <div class="flex justify-between">
+              <span class="text-slate-400">Chủ tài khoản:</span>
+              <span class="font-bold text-white" id="display-bank-owner">NGUYEN VAN MINH</span>
+            </div>
+            <div class="flex justify-between">
+              <span class="text-slate-400">Nội dung CK:</span>
+              <span class="font-bold text-amber-400 select-all" id="display-transfer-note">NAP TTM</span>
+            </div>
+          </div>
+
+          <div class="flex flex-col items-center justify-center bg-white p-3 rounded-xl">
+            <img id="display-qr-img" src="https://i.postimg.cc/XJ12Q7tn/IPAY-1791328036424-share.jpg" alt="Mã QR Chuyển Khoản" class="max-h-64 object-contain rounded-lg" />
+          </div>
+        </div>
+
+        <div class="glass-card rounded-2xl p-6 space-y-4">
+          <h3 class="text-lg font-bold text-white">2. Gửi Xác Nhận Nạp Tiền</h3>
+          <form onsubmit="submitTopupRequest(event)" class="space-y-4">
+            <div>
+              <label class="block text-xs text-slate-400 mb-1">Số tiền đã chuyển (VNĐ)</label>
+              <input type="number" id="topup-amount" min="10000" step="1000" required placeholder="Ví dụ: 50000" class="w-full px-3.5 py-2.5 rounded-xl bg-slate-900 border border-slate-700 text-white text-sm" />
+            </div>
+            <div>
+              <label class="block text-xs text-slate-400 mb-1">Mã giao dịch / Ghi chú thêm</label>
+              <input type="text" id="topup-note" required placeholder="Nhập mã giao dịch ngân hàng hoặc tên người gửi" class="w-full px-3.5 py-2.5 rounded-xl bg-slate-900 border border-slate-700 text-white text-sm" />
+            </div>
+            <button type="submit" class="w-full py-3 rounded-xl bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-bold text-sm transition">
+              Gửi Yêu Cầu Xác Nhận Nạp
+            </button>
+          </form>
+
+          <div class="pt-4 border-t border-slate-800 space-y-2">
+            <h4 class="text-xs font-bold text-slate-300">Lịch sử yêu cầu nạp của bạn</h4>
+            <div id="user-topup-list" class="space-y-2 max-h-48 overflow-y-auto text-xs"></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- TAB: HISTORY -->
+    <section id="tab-history" class="tab-section hidden">
+      <div class="glass-card rounded-2xl p-6 space-y-4">
+        <h2 class="text-xl font-bold text-white">Lịch Sử Mua Tài Khoản & Giao Dịch</h2>
+        <p class="text-xs text-slate-400">Thông tin tài khoản + mật khẩu acc đã mua sẽ được lưu trữ vĩnh viễn tại đây.</p>
+        <div id="purchase-history-list" class="space-y-3"></div>
+      </div>
+    </section>
+
+    <!-- TAB: ADMIN PANEL -->
+    <section id="tab-admin" class="tab-section hidden space-y-6">
+      <div class="flex flex-wrap items-center justify-between gap-3 bg-amber-500/10 border border-amber-500/30 p-4 rounded-2xl">
+        <div>
+          <h2 class="text-xl font-extrabold text-amber-400">Bảng Quản Trị Hệ Thống TTMShop</h2>
+          <p class="text-xs text-slate-300">Mọi thay đổi tại đây sẽ tự động đồng bộ trực tuyến tới toàn bộ khách hàng.</p>
+        </div>
+        <button onclick="logoutAdmin()" class="px-4 py-2 rounded-xl bg-rose-600 hover:bg-rose-500 text-white text-xs font-bold">
+          Thoát Admin
+        </button>
+      </div>
+
+      <!-- ADMIN SUB-TABS -->
+      <div class="flex flex-wrap gap-2 border-b border-slate-800 pb-3 text-xs font-bold">
+        <button onclick="switchAdminSubTab('acc')" id="admin-sub-acc" class="admin-sub-btn px-4 py-2 rounded-xl bg-sky-600 text-white">Kho Acc</button>
+        <button onclick="switchAdminSubTab('topup')" id="admin-sub-topup" class="admin-sub-btn px-4 py-2 rounded-xl bg-slate-800 text-slate-300">Duyệt Nạp Tiền</button>
+        <button onclick="switchAdminSubTab('users')" id="admin-sub-users" class="admin-sub-btn px-4 py-2 rounded-xl bg-slate-800 text-slate-300">Thành Viên</button>
+        <button onclick="switchAdminSubTab('settings')" id="admin-sub-settings" class="admin-sub-btn px-4 py-2 rounded-xl bg-slate-800 text-slate-300">Cài Đặt Nạp / OTP / SEO</button>
+      </div>
+
+      <!-- SUB-TAB: MANAGE ACCOUNTS -->
+      <div id="admin-panel-acc" class="admin-panel space-y-6">
+        <form onsubmit="adminAddAccount(event)" class="glass-card p-5 rounded-2xl grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+          <div class="sm:col-span-2 lg:col-span-3">
+            <h3 class="text-base font-bold text-white">Đăng Tài Khoản Mới Lên Shop</h3>
+          </div>
+          <div>
+            <label class="block text-xs text-slate-400 mb-1">Danh mục game</label>
+            <select id="new-acc-cat" class="w-full px-3 py-2 rounded-xl bg-slate-900 border border-slate-700 text-sm text-white">
+              <option value="Liên Quân">Liên Quân Mobile</option>
+              <option value="Free Fire">Free Fire</option>
+              <option value="Roblox">Roblox</option>
+              <option value="Valorant">Valorant / PC</option>
+              <option value="Khác">Game Khác</option>
+            </select>
+          </div>
+          <div>
+            <label class="block text-xs text-slate-400 mb-1">Tiêu đề Acc</label>
+            <input type="text" id="new-acc-title" required placeholder="VD: Acc Liên Quân 120 Tướng Full Ngọc" class="w-full px-3 py-2 rounded-xl bg-slate-900 border border-slate-700 text-sm text-white" />
+          </div>
+          <div>
+            <label class="block text-xs text-slate-400 mb-1">Giá bán (VNĐ)</label>
+            <input type="number" id="new-acc-price" required min="1000" placeholder="VD: 150000" class="w-full px-3 py-2 rounded-xl bg-slate-900 border border-slate-700 text-sm text-white" />
+          </div>
+          <div>
+            <label class="block text-xs text-slate-400 mb-1">Link Ảnh Minh Họa (Tùy chọn)</label>
+            <input type="url" id="new-acc-img" placeholder="https://i.postimg.cc/..." class="w-full px-3 py-2 rounded-xl bg-slate-900 border border-slate-700 text-sm text-white" />
+          </div>
+          <div>
+            <label class="block text-xs text-slate-400 mb-1">Tài khoản đăng nhập game</label>
+            <input type="text" id="new-acc-user" required placeholder="Tài khoản / Email" class="w-full px-3 py-2 rounded-xl bg-slate-900 border border-slate-700 text-sm text-white" />
+          </div>
+          <div>
+            <label class="block text-xs text-slate-400 mb-1">Mật khẩu & Thông tin bàn giao</label>
+            <input type="text" id="new-acc-pass" required placeholder="Mật khẩu | Mã 2FA..." class="w-full px-3 py-2 rounded-xl bg-slate-900 border border-slate-700 text-sm text-white" />
+          </div>
+          <div class="sm:col-span-2 lg:col-span-3">
+            <label class="block text-xs text-slate-400 mb-1">Mô tả chi tiết</label>
+            <input type="text" id="new-acc-desc" required placeholder="Rank Cao Thủ, 50 Trang phục hiếm, trắng thông tin..." class="w-full px-3 py-2 rounded-xl bg-slate-900 border border-slate-700 text-sm text-white" />
+          </div>
+          <div class="sm:col-span-2 lg:col-span-3">
+            <button type="submit" class="px-6 py-2.5 rounded-xl bg-sky-500 hover:bg-sky-400 text-slate-950 font-bold text-sm">
+              + Đăng Lên Shop Ngay
+            </button>
+          </div>
+        </form>
+
+        <div class="glass-card p-5 rounded-2xl space-y-3">
+          <h3 class="text-base font-bold text-white">Danh Sách Acc Đang Quản Lý</h3>
+          <div id="admin-acc-list" class="space-y-2"></div>
+        </div>
+      </div>
+
+      <!-- SUB-TAB: TOPUP REQUESTS -->
+      <div id="admin-panel-topup" class="admin-panel hidden glass-card p-5 rounded-2xl space-y-4">
+        <h3 class="text-base font-bold text-white">Danh Sách Yêu Cầu Nạp Tiền Từ Khách</h3>
+        <div id="admin-topup-list" class="space-y-3"></div>
+      </div>
+
+      <!-- SUB-TAB: USERS -->
+      <div id="admin-panel-users" class="admin-panel hidden glass-card p-5 rounded-2xl space-y-4">
+        <h3 class="text-base font-bold text-white">Danh Sách Thành Viên & Cộng / Trừ Tiền</h3>
+        <div id="admin-user-list" class="space-y-3"></div>
+      </div>
+
+      <!-- SUB-TAB: SETTINGS -->
+      <div id="admin-panel-settings" class="admin-panel hidden">
+        <form onsubmit="saveAdminSettings(event)" class="glass-card p-6 rounded-2xl space-y-6">
+          <div class="space-y-4">
+            <h3 class="text-base font-bold text-amber-400">Cấu Hình Ngân Hàng & Mã QR Nạp Tiền</h3>
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <div>
+                <label class="block text-xs text-slate-400 mb-1">Tên Ngân Hàng</label>
+                <input type="text" id="cfg-bank-name" class="w-full px-3 py-2 rounded-xl bg-slate-900 border border-slate-700 text-sm text-white" />
+              </div>
+              <div>
+                <label class="block text-xs text-slate-400 mb-1">Số Tài Khoản</label>
+                <input type="text" id="cfg-bank-acc" class="w-full px-3 py-2 rounded-xl bg-slate-900 border border-slate-700 text-sm text-white" />
+              </div>
+              <div>
+                <label class="block text-xs text-slate-400 mb-1">Chủ Tài Khoản</label>
+                <input type="text" id="cfg-bank-owner" class="w-full px-3 py-2 rounded-xl bg-slate-900 border border-slate-700 text-sm text-white" />
+              </div>
+              <div>
+                <label class="block text-xs text-slate-400 mb-1">Link Ảnh QR (Đuôi .jpg / .png)</label>
+                <input type="text" id="cfg-qr-url" class="w-full px-3 py-2 rounded-xl bg-slate-900 border border-slate-700 text-sm text-white" />
+              </div>
+            </div>
+          </div>
+
+          <div class="space-y-4 pt-4 border-t border-slate-800">
+            <h3 class="text-base font-bold text-sky-400">Cấu Hình Gửi Mã OTP Gmail Thật (EmailJS) & Google SEO</h3>
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <div>
+                <label class="block text-xs text-slate-400 mb-1">EmailJS Service ID</label>
+                <input type="text" id="cfg-ejs-service" class="w-full px-3 py-2 rounded-xl bg-slate-900 border border-slate-700 text-sm text-white" />
+              </div>
+              <div>
+                <label class="block text-xs text-slate-400 mb-1">EmailJS Template ID</label>
+                <input type="text" id="cfg-ejs-template" class="w-full px-3 py-2 rounded-xl bg-slate-900 border border-slate-700 text-sm text-white" />
+              </div>
+              <div>
+                <label class="block text-xs text-slate-400 mb-1">EmailJS Public Key</label>
+                <input type="text" id="cfg-ejs-key" class="w-full px-3 py-2 rounded-xl bg-slate-900 border border-slate-700 text-sm text-white" />
+              </div>
+              <div>
+                <label class="block text-xs text-slate-400 mb-1">Mã xác minh Google Search Console</label>
+                <input type="text" id="cfg-gsc-code" class="w-full px-3 py-2 rounded-xl bg-slate-900 border border-slate-700 text-sm text-white" />
+              </div>
+            </div>
+          </div>
+
+          <button type="submit" class="px-6 py-3 rounded-xl bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-bold text-sm">
+            Lưu Cấu Hình Email OTP, QR & Google SEO
+          </button>
+        </form>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="border-t border-slate-800 bg-slate-950/80 py-6 text-center text-xs text-slate-400 space-y-1">
+    <p>© 2026 <strong class="text-sky-400">TTMShop</strong>. Hệ thống cửa hàng game tự động 24/7.</p>
+    <p>Giao dịch tự động • Bảo mật tài khoản • Đồng bộ trực tuyến</p>
+  </footer>
+
+  <!-- AUTH MODAL -->
+  <div id="auth-modal" class="fixed inset-0 z-50 hidden bg-black/75 backdrop-blur-sm flex items-center justify-center p-4">
+    <div class="glass-card w-full max-w-md rounded-2xl p-6 space-y-5 relative">
+      <button onclick="closeAuthModal()" class="absolute top-4 right-4 text-slate-400 hover:text-white text-lg">✕</button>
+      <div class="flex gap-2 border-b border-slate-800 pb-3 text-sm font-bold">
+        <button onclick="switchAuthMode('login')" id="auth-tab-login" class="px-4 py-1.5 rounded-lg bg-sky-600 text-white">Đăng Nhập / Đăng Ký</button>
+        <button onclick="switchAuthMode('otp')" id="auth-tab-otp" class="px-4 py-1.5 rounded-lg bg-slate-800 text-slate-300">Gmail OTP</button>
+      </div>
+
+      <!-- STANDARD LOGIN / REGISTER -->
+      <form id="form-standard-auth" onsubmit="handleStandardAuth(event)" class="space-y-4">
+        <div>
+          <label class="block text-xs text-slate-400 mb-1">Tên tài khoản</label>
+          <input type="text" id="auth-username" required placeholder="Nhập tên đăng nhập" class="w-full px-3.5 py-2.5 rounded-xl bg-slate-900 border border-slate-700 text-white text-sm" />
+        </div>
+        <div>
+          <label class="block text-xs text-slate-400 mb-1">Mật khẩu</label>
+          <input type="password" id="auth-password" required placeholder="Nhập mật khẩu" class="w-full px-3.5 py-2.5 rounded-xl bg-slate-900 border border-slate-700 text-white text-sm" />
+        </div>
+        <button type="submit" class="w-full py-2.5 rounded-xl bg-sky-500 hover:bg-sky-400 text-slate-950 font-bold text-sm">
+          Tiếp Tục (Tự Động Tạo Nếu Chưa Có)
+        </button>
+      </form>
+
+      <!-- GMAIL OTP LOGIN -->
+      <div id="form-otp-auth" class="hidden space-y-4">
+        <div>
+          <label class="block text-xs text-slate-400 mb-1">Địa chỉ Gmail của bạn</label>
+          <div class="flex gap-2">
+            <input type="email" id="otp-email" placeholder="example@gmail.com" class="flex-1 px-3.5 py-2.5 rounded-xl bg-slate-900 border border-slate-700 text-white text-sm" />
+            <button type="button" onclick="sendGmailOTP()" id="btn-send-otp" class="px-4 py-2.5 rounded-xl bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold text-xs whitespace-nowrap">
+              Gửi Mã
+            </button>
+          </div>
+        </div>
+        <div>
+          <label class="block text-xs text-slate-400 mb-1">Nhập mã OTP 6 số từ Gmail</label>
+          <input type="text" id="otp-code-input" maxlength="6" placeholder="123456" class="w-full px-3.5 py-2.5 rounded-xl bg-slate-900 border border-slate-700 text-white text-sm tracking-widest text-center font-bold" />
+        </div>
+        <button type="button" onclick="verifyGmailOTP()" class="w-full py-2.5 rounded-xl bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-bold text-sm">
+          Xác Nhận Mã & Đăng Nhập
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ADMIN GATE MODAL -->
+  <div id="admin-gate-modal" class="fixed inset-0 z-50 hidden bg-black/75 backdrop-blur-sm flex items-center justify-center p-4">
+    <div class="glass-card w-full max-w-sm rounded-2xl p-6 space-y-4 relative">
+      <button onclick="document.getElementById('admin-gate-modal').classList.add('hidden')" class="absolute top-4 right-4 text-slate-400 hover:text-white">✕</button>
+      <h3 class="text-lg font-bold text-amber-400">Xác Thực Quản Trị Viên</h3>
+      <form onsubmit="verifyAdminPassword(event)" class="space-y-3">
+        <input type="password" id="admin-pass-input" required placeholder="Nhập mật khẩu Admin..." class="w-full px-3.5 py-2.5 rounded-xl bg-slate-900 border border-slate-700 text-white text-sm" />
+        <button type="submit" class="w-full py-2.5 rounded-xl bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold text-sm">
+          Mở Bảng Admin
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <!-- TOAST -->
+  <div id="toast" class="fixed bottom-5 right-5 z-50 hidden px-4 py-3 rounded-xl bg-slate-800 border border-sky-500/40 text-white text-xs sm:text-sm font-semibold shadow-2xl"></div>
+
+  <script>
+    // ==========================================
+    // 1. CẤU HÌNH FIREBASE REALTIME DATABASE
+    // ==========================================
+    const FIREBASE_DB_URL = "https://ttmshop-e14cd-default-rtdb.asia-southeast1.firebasedatabase.app";
+    const ADMIN_PASSWORD = "Minh2010";
+
+    const DEFAULT_STATE = {
+      settings: {
+        bankName: "MB Bank",
+        bankAcc: "0988888888",
+        bankOwner: "NGUYEN VAN MINH",
+        qrUrl: "https://i.postimg.cc/XJ12Q7tn/IPAY-1791328036424-share.jpg",
+        ejsService: "service_9d0sw9f",
+        ejsTemplate: "template_8mc4sss",
+        ejsKey: "ChSsNxb75obMsfmAW",
+        gscCode: "CJnbeOW7Fg2Z0fwY8_CQncD1C-W01CvhJtetKJMUqm0"
+      },
+      accounts: [
+        {
+          id: "ACC101",
+          category: "Liên Quân",
+          title: "Acc Liên Quân 115 Tướng - 180 Skin",
+          desc: "Rank Tinh Anh, nhiều skin bậc SS hữu hạn, trắng thông tin đổi mật khẩu ngay.",
+          price: 150000,
+          img: "https://images.unsplash.com/photo-1542751371-adc38448a05e?auto=format&fit=crop&w=800&q=80",
+          gameUser: "ttm_lq_vip101",
+          gamePass: "Pass@2026 | Trang thong tin",
+          sold: false,
+          buyer: ""
+        },
+        {
+          id: "ACC102",
+          category: "Free Fire",
+          title: "Acc Free Fire MP40 Mãng Xà Lv7",
+          desc: "Full bộ đồ khủng long, 5 súng nâng cấp, đăng nhập Facebook trắng.",
+          price: 220000,
+          img: "https://images.unsplash.com/photo-1538481199705-c710c4e965fc?auto=format&fit=crop&w=800&q=80",
+          gameUser: "ttm_ff_pro102",
+          gamePass: "FfVip#8899 | Ma khoi phuc: 112233",
+          sold: false,
+          buyer: ""
+        }
+      ],
+      users: {},
+      topups: []
+    };
+
+    let appState = JSON.parse(localStorage.getItem("ttmshop_cache")) || JSON.parse(JSON.stringify(DEFAULT_STATE));
+    let currentUser = localStorage.getItem("ttmshop_current_user") || "";
+    let isAdmin = sessionStorage.getItem("ttmshop_is_admin") === "true";
+    let generatedOTP = "";
+    let otpTargetEmail = "";
+
+    function showToast(msg) {
+      const t = document.getElementById("toast");
+      t.textContent = msg;
+      t.classList.remove("hidden");
+      clearTimeout(window._toastTimer);
+      window._toastTimer = setTimeout(() => t.classList.add("hidden"), 3500);
+    }
+
+    function formatMoney(num) {
+      return Number(num || 0).toLocaleString("vi-VN") + "đ";
+    }
+
+    // ==========================================
+    // 2. ĐỒNG BỘ DỮ LIỆU ĐÁM MÂY FIREBASE
+    // ==========================================
+    async function syncFromCloud(isInitial = false) {
+      try {
+        const res = await fetch(`${FIREBASE_DB_URL}/shopData.json`);
+        if (!res.ok) throw new Error("Lỗi kết nối Firebase");
+        const data = await res.json();
+
+        if (!data) {
+          // Lần đầu tiên: đẩy dữ liệu mặc định lên Firebase
+          await pushToCloud();
+        } else {
+          appState.settings = Object.assign({}, DEFAULT_STATE.settings, data.settings || {});
+          appState.accounts = Array.isArray(data.accounts) ? data.accounts : (data.accounts ? Object.values(data.accounts) : []);
+          appState.users = data.users || {};
+          appState.topups = Array.isArray(data.topups) ? data.topups : (data.topups ? Object.values(data.topups) : []);
+          localStorage.setItem("ttmshop_cache", JSON.stringify(appState));
+        }
+
+        document.getElementById("sync-dot").className = "w-2.5 h-2.5 rounded-full bg-emerald-400";
+        document.getElementById("sync-status-text").textContent = "Đã kết nối đám mây Firebase • Dữ liệu đồng bộ trực tuyến";
+        renderAll();
+      } catch (err) {
+        document.getElementById("sync-dot").className = "w-2.5 h-2.5 rounded-full bg-rose-500";
+        document.getElementById("sync-status-text").textContent = "Đang chạy chế độ ngoại tuyến (Kiểm tra mạng hoặc Rules Firebase)";
+        if (isInitial) renderAll();
+      }
+    }
+
+    async function pushToCloud() {
+      localStorage.setItem("ttmshop_cache", JSON.stringify(appState));
+      try {
+        await fetch(`${FIREBASE_DB_URL}/shopData.json`, {
+          method: "PUT",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(appState)
+        });
+      } catch (e) {
+        console.error("Sync push error:", e);
+      }
+    }
+
+    // Tự động đồng bộ mỗi 3 giây
+    setInterval(() => syncFromCloud(false), 3000);
+
+    // ==========================================
+    // 3. ĐIỀU HƯỚNG & GIAO DIỆN
+    // ==========================================
+    function switchTab(tabId) {
+      document.querySelectorAll(".tab-section").forEach(el => el.classList.add("hidden"));
+      document.getElementById("tab-" + tabId).classList.remove("hidden");
+
+      document.querySelectorAll(".nav-btn").forEach(btn => {
+        btn.classList.remove("bg-sky-600", "text-white");
+        btn.classList.add("text-slate-300");
+      });
+      const activeBtn = document.getElementById("nav-" + tabId);
+      if (activeBtn) {
+        activeBtn.classList.add("bg-sky-600", "text-white");
+        activeBtn.classList.remove("text-slate-300");
+      }
+
+      if (tabId === "wheel") drawWheel();
+      renderAll();
+    }
+
+    function renderAll() {
+      renderAuthArea();
+      renderStats();
+      renderAccounts();
+      renderTopupInfo();
+      renderHistory();
+      if (isAdmin) renderAdminPanels();
+    }
+
+    function renderAuthArea() {
+      const area = document.getElementById("auth-area");
+      if (currentUser && appState.users[currentUser]) {
+        const u = appState.users[currentUser];
+        area.innerHTML = `
+          <div class="flex items-center gap-2 bg-slate-900 border border-slate-700 px-3 py-1.5 rounded-xl text-xs">
+            <span class="font-bold text-white">${currentUser}</span>
+            <span class="px-2 py-0.5 rounded-md bg-emerald-500/20 text-emerald-400 font-extrabold">${formatMoney(u.balance)}</span>
+            <button onclick="logoutUser()" class="text-rose-400 hover:underline ml-1">Thoát</button>
+          </div>
+        `;
+      } else {
+        area.innerHTML = `
+          <button onclick="openAuthModal()" class="px-4 py-2 rounded-xl bg-sky-500 hover:bg-sky-400 text-slate-950 font-bold text-xs shadow">
+            Đăng Nhập / Đăng Ký
+          </button>
+        `;
+      }
+    }
+
+    function renderStats() {
+      const avail = appState.accounts.filter(a => !a.sold).length;
+      const sold = appState.accounts.filter(a => a.sold).length;
+      document.getElementById("stat-total-acc").textContent = avail;
+      document.getElementById("stat-sold-acc").textContent = sold;
+    }
+
+    function createAccountCard(acc) {
+      const imgUrl = acc.img || "https://images.unsplash.com/photo-1542751371-adc38448a05e?auto=format&fit=crop&w=800&q=80";
+      return `
+        <div class="glass-card rounded-2xl overflow-hidden flex flex-col justify-between border border-slate-800 hover:border-sky-500/40 transition">
+          <div>
+            <div class="relative h-44 bg-slate-900">
+              <img src="${imgUrl}" alt="${acc.title}" class="w-full h-full object-cover" />
+              <span class="absolute top-3 left-3 px-2.5 py-1 rounded-lg bg-slate-950/80 text-sky-400 text-[11px] font-bold border border-sky-500/30">
+                ${acc.category}
+              </span>
+              <span class="absolute top-3 right-3 px-2.5 py-1 rounded-lg bg-slate-950/80 text-slate-300 text-[11px] font-mono">
+                #${acc.id}
+              </span>
+            </div>
+            <div class="p-4 space-y-2">
+              <h4 class="font-bold text-white text-base line-clamp-1">${acc.title}</h4>
+              <p class="text-xs text-slate-400 line-clamp-2 min-h-[32px]">${acc.desc}</p>
+            </div>
+          </div>
+          <div class="px-4 pb-4 pt-2 border-t border-slate-800/80 flex items-center justify-between">
+            <span class="text-lg font-extrabold text-amber-400">${formatMoney(acc.price)}</span>
+            ${acc.sold
+              ? `<span class="px-3 py-1.5 rounded-xl bg-slate-800 text-slate-500 text-xs font-bold">Đã Bán</span>`
+              : `<button onclick="buyAccount('${acc.id}')" class="px-4 py-2 rounded-xl bg-sky-500 hover:bg-sky-400 text-slate-950 font-bold text-xs transition">Mua Ngay</button>`
+            }
+          </div>
+        </div>
+      `;
+    }
+
+    function renderAccounts() {
+      const availAccs = appState.accounts.filter(a => !a.sold);
+      const featuredGrid = document.getElementById("featured-accounts-grid");
+      featuredGrid.innerHTML = availAccs.slice(0, 3).map(createAccountCard).join("") || `<p class="text-xs text-slate-400">Chưa có tài khoản nào đang bày bán.</p>`;
+
+      const cat = document.getElementById("filter-category").value;
+      const kw = document.getElementById("search-acc").value.toLowerCase().trim();
+      const filtered = appState.accounts.filter(a => {
+        const matchCat = cat === "ALL" || a.category === cat;
+        const matchKw = !kw || a.title.toLowerCase().includes(kw) || a.desc.toLowerCase().includes(kw) || a.id.toLowerCase().includes(kw);
+        return matchCat && matchKw;
+      });
+      document.getElementById("all-accounts-grid").innerHTML = filtered.map(createAccountCard).join("") || `<p class="text-xs text-slate-400">Không tìm thấy tài khoản phù hợp.</p>`;
+    }
+
+    // ==========================================
+    // 4. ĐĂNG NHẬP / ĐĂNG KÝ & GMAIL OTP
+    // ==========================================
+    function openAuthModal() {
+      document.getElementById("auth-modal").classList.remove("hidden");
+    }
+    function closeAuthModal() {
+      document.getElementById("auth-modal").classList.add("hidden");
+    }
+    function switchAuthMode(mode) {
+      document.getElementById("form-standard-auth").classList.toggle("hidden", mode !== "login");
+      document.getElementById("form-otp-auth").classList.toggle("hidden", mode !== "otp");
+      document.getElementById("auth-tab-login").className = mode === "login" ? "px-4 py-1.5 rounded-lg bg-sky-600 text-white" : "px-4 py-1.5 rounded-lg bg-slate-800 text-slate-300";
+      document.getElementById("auth-tab-otp").className = mode === "otp" ? "px-4 py-1.5 rounded-lg bg-sky-600 text-white" : "px-4 py-1.5 rounded-lg bg-slate-800 text-slate-300";
+    }
+
+    async function handleStandardAuth(e) {
+      e.preventDefault();
+      const u = document.getElementById("auth-username").value.trim().replace(/[.#$/[\]]/g, "_");
+      const p = document.getElementById("auth-password").value;
+      if (!u || !p) return;
+
+      await syncFromCloud(false);
+
+      if (appState.users[u]) {
+        if (appState.users[u].password !== p) {
+          showToast("❌ Sai mật khẩu tài khoản!");
+          return;
+        }
+      } else {
+        appState.users[u] = { password: p, balance: 0, createdAt: new Date().toLocaleString("vi-VN") };
+        await pushToCloud();
+        showToast("🎉 Tạo tài khoản mới thành công!");
+      }
+
+      currentUser = u;
+      localStorage.setItem("ttmshop_current_user", u);
+      closeAuthModal();
+      renderAll();
+      showToast(`Xin chào, ${u}!`);
+    }
+
+    async function sendGmailOTP() {
+      const email = document.getElementById("otp-email").value.trim();
+      if (!email || !email.includes("@")) {
+        showToast("Vui lòng nhập đúng địa chỉ Gmail!");
+        return;
+      }
+      const { ejsService, ejsTemplate, ejsKey } = appState.settings;
+      if (!ejsService || !ejsTemplate || !ejsKey) {
+        showToast("Admin chưa cấu hình EmailJS!");
+        return;
+      }
+
+      generatedOTP = Math.floor(100000 + Math.random() * 900000).toString();
+      otpTargetEmail = email;
+
+      const btn = document.getElementById("btn-send-otp");
+      btn.disabled = true;
+      btn.textContent = "Đang gửi...";
+
+      try {
+        emailjs.init(ejsKey);
+        await emailjs.send(ejsService, ejsTemplate, {
+          to_email: email,
+          otp_code: generatedOTP
+        });
+        showToast("✅ Đã gửi mã OTP 6 số tới Gmail của bạn!");
+      } catch (err) {
+        showToast("❌ Lỗi gửi OTP: Kiểm tra lại Service/Template ID!");
+      } finally {
+        btn.disabled = false;
+        btn.textContent = "Gửi Mã";
+      }
+    }
+
+    async function verifyGmailOTP() {
+      const code = document.getElementById("otp-code-input").value.trim();
+      if (!generatedOTP || code !== generatedOTP) {
+        showToast("❌ Mã OTP không chính xác!");
+        return;
+      }
+      const userKey = otpTargetEmail.replace(/[.#$/[\]]/g, "_");
+      await syncFromCloud(false);
+      if (!appState.users[userKey]) {
+        appState.users[userKey] = { password: "OTP_LOGIN", balance: 0, createdAt: new Date().toLocaleString("vi-VN") };
+        await pushToCloud();
+      }
+      currentUser = userKey;
+      localStorage.setItem("ttmshop_current_user", userKey);
+      generatedOTP = "";
+      closeAuthModal();
+      renderAll();
+      showToast("✅ Xác thực Gmail OTP thành công!");
+    }
+
+    function logoutUser() {
+      currentUser = "";
+      localStorage.removeItem("ttmshop_current_user");
+      renderAll();
+      showToast("Đã đăng xuất tài khoản.");
+    }
+
+    // ==========================================
+    // 5. MUA ACC, NẠP TIỀN & VÒNG QUAY
+    // ==========================================
+    async function buyAccount(accId) {
+      if (!currentUser || !appState.users[currentUser]) {
+        openAuthModal();
+        showToast("Vui lòng đăng nhập trước khi mua acc!");
+        return;
+      }
+
+      await syncFromCloud(false);
+      const acc = appState.accounts.find(a => a.id === accId);
+      if (!acc || acc.sold) {
+        showToast("Tài khoản này vừa được người khác mua!");
+        renderAll();
+        return;
+      }
+
+      const user = appState.users[currentUser];
+      if (user.balance < acc.price) {
+        showToast("❌ Số dư không đủ! Vui lòng nạp thêm tiền.");
+        switchTab("topup");
+        return;
+      }
+
+      if (!confirm(`Xác nhận mua "${acc.title}" với giá ${formatMoney(acc.price)}?`)) return;
+
+      user.balance -= acc.price;
+      acc.sold = true;
+      acc.buyer = currentUser;
+      acc.soldAt = new Date().toLocaleString("vi-VN");
+
+      await pushToCloud();
+      renderAll();
+      showToast("🎉 Mua acc thành công! Xem tài khoản trong mục Lịch Sử.");
+      switchTab("history");
+    }
+
+    function renderTopupInfo() {
+      const s = appState.settings;
+      document.getElementById("display-bank-name").textContent = s.bankName || "MB Bank";
+      document.getElementById("display-bank-acc").textContent = s.bankAcc || "0988888888";
+      document.getElementById("display-bank-owner").textContent = s.bankOwner || "NGUYEN VAN MINH";
+      document.getElementById("display-transfer-note").textContent = currentUser ? `NAP ${currentUser}` : "NAP TTM";
+
+      const qrImg = document.getElementById("display-qr-img");
+      if (s.qrUrl && s.qrUrl.startsWith("http")) {
+        qrImg.src = s.qrUrl;
+      } else {
+        qrImg.src = `https://img.vietqr.io/image/${encodeURIComponent(s.bankName)}-${encodeURIComponent(s.bankAcc)}-compact2.png?accountName=${encodeURIComponent(s.bankOwner)}`;
+      }
+
+      const list = document.getElementById("user-topup-list");
+      const myTopups = appState.topups.filter(t => t.user === currentUser).reverse();
+      list.innerHTML = myTopups.map(t => `
+        <div class="p-2.5 rounded-xl bg-slate-900 border border-slate-800 flex justify-between items-center">
+          <div>
+            <p class="font-bold text-white">${formatMoney(t.amount)}</p>
+            <p class="text-[11px] text-slate-400">${t.note} • ${t.time}</p>
+          </div>
+          <span class="px-2 py-0.5 rounded text-[11px] font-bold ${t.status === 'APPROVED' ? 'bg-emerald-500/20 text-emerald-400' : (t.status === 'REJECTED' ? 'bg-rose-500/20 text-rose-400' : 'bg-amber-500/20 text-amber-400')}">
+            ${t.status === 'APPROVED' ? 'Đã duyệt' : (t.status === 'REJECTED' ? 'Từ chối' : 'Chờ duyệt')}
+          </span>
+        </div>
+      `).join("") || `<p class="text-slate-500">Chưa có yêu cầu nạp tiền nào.</p>`;
+    }
+
+    async function submitTopupRequest(e) {
+      e.preventDefault();
+      if (!currentUser) {
+        openAuthModal();
+        showToast("Vui lòng đăng nhập để gửi yêu cầu nạp!");
+        return;
+      }
+      const amount = Number(document.getElementById("topup-amount").value);
+      const note = document.getElementById("topup-note").value.trim();
+
+      await syncFromCloud(false);
+      appState.topups.push({
+        id: "TOP" + Date.now(),
+        user: currentUser,
+        amount,
+        note,
+        status: "PENDING",
+        time: new Date().toLocaleString("vi-VN")
+      });
+      await pushToCloud();
+      e.target.reset();
+      renderTopupInfo();
+      showToast("✅ Đã gửi yêu cầu nạp tiền! Admin sẽ duyệt ngay.");
+    }
+
+    function renderHistory() {
+      const container = document.getElementById("purchase-history-list");
+      if (!currentUser) {
+        container.innerHTML = `<p class="text-xs text-slate-400">Vui lòng đăng nhập để xem lịch sử mua tài khoản.</p>`;
+        return;
+      }
+      const mine = appState.accounts.filter(a => a.sold && a.buyer === currentUser).reverse();
+      container.innerHTML = mine.map(a => `
+        <div class="p-4 rounded-xl bg-slate-900 border border-sky-500/30 space-y-2">
+          <div class="flex justify-between items-center">
+            <span class="font-bold text-white text-sm">${a.title} (#${a.id})</span>
+            <span class="text-xs text-amber-400 font-bold">${formatMoney(a.price)}</span>
+          </div>
+          <div class="p-3 rounded-lg bg-slate-950 font-mono text-xs text-emerald-400 space-y-1 select-all">
+            <p>Tài khoản: <strong>${a.gameUser}</strong></p>
+            <p>Mật khẩu / Info: <strong>${a.gamePass}</strong></p>
+          </div>
+          <p class="text-[11px] text-slate-500">Thời gian mua: ${a.soldAt || "Đã hoàn tất"}</p>
+        </div>
+      `).join("") || `<p class="text-xs text-slate-400">Bạn chưa mua tài khoản nào trên shop.</p>`;
+    }
+
+    // VÒNG QUAY MAY MẮN
+    const PRIZES = [
+      { label: "Chúc may mắn", value: 0, color: "#1e293b" },
+      { label: "+10.000đ", value: 10000, color: "#0284c7" },
+      { label: "+50.000đ", value: 50000, color: "#059669" },
+      { label: "+5.000đ", value: 5000, color: "#4f46e5" },
+      { label: "+100.000đ", value: 100000, color: "#d97706" },
+      { label: "+20.000đ", value: 20000, color: "#7c3aed" }
+    ];
+    let currentDeg = 0;
+    let isSpinning = false;
+
+    function drawWheel() {
+      const canvas = document.getElementById("wheel-canvas");
+      if (!canvas) return;
+      const ctx = canvas.getContext("2d");
+      const arc = (2 * Math.PI) / PRIZES.length;
+      ctx.clearRect(0, 0, 320, 320);
+
+      PRIZES.forEach((p, i) => {
+        const angle = i * arc;
+        ctx.beginPath();
+        ctx.fillStyle = p.color;
+        ctx.moveTo(160, 160);
+        ctx.arc(160, 160, 155, angle, angle + arc);
+        ctx.fill();
+
+        ctx.save();
+        ctx.translate(160, 160);
+        ctx.rotate(angle + arc / 2);
+        ctx.fillStyle = "#ffffff";
+        ctx.font = "bold 13px Be Vietnam Pro, sans-serif";
+        ctx.fillText(p.label, 55, 5);
+        ctx.restore();
+      });
+    }
+
+    async function spinWheel() {
+      if (isSpinning) return;
+      if (!currentUser || !appState.users[currentUser]) {
+        openAuthModal();
+        showToast("Vui lòng đăng nhập để quay thưởng!");
+        return;
+      }
+      await syncFromCloud(false);
+      const user = appState.users[currentUser];
+      if (user.balance < 20000) {
+        showToast("❌ Cần tối thiểu 20.000đ để quay!");
+        return;
+      }
+
+      isSpinning = true;
+      user.balance -= 20000;
+      await pushToCloud();
+      renderAuthArea();
+
+      const prizeIndex = Math.floor(Math.random() * PRIZES.length);
+      const sliceDeg = 360 / PRIZES.length;
+      const targetAngle = 360 - (prizeIndex * sliceDeg + sliceDeg / 2) - 90;
+      currentDeg += 1800 + ((targetAngle - (currentDeg % 360) + 360) % 360);
+
+      const canvas = document.getElementById("wheel-canvas");
+      canvas.style.transform = `rotate(${currentDeg}deg)`;
+
+      setTimeout(async () => {
+        const won = PRIZES[prizeIndex];
+        if (won.value > 0) {
+          user.balance += won.value;
+          await pushToCloud();
+          document.getElementById("wheel-result").innerHTML = `<span class="text-emerald-400">🎉 Chúc mừng! Bạn trúng ${won.label} vào tài khoản!</span>`;
+        } else {
+          document.getElementById("wheel-result").innerHTML = `<span class="text-slate-400">Chúc bạn may mắn lần sau!</span>`;
+        }
+        renderAuthArea();
+        isSpinning = false;
+      }, 4100);
+    }
+
+    // ==========================================
+    // 6. QUẢN TRỊ VIÊN (ADMIN)
+    // ==========================================
+    function openAdminGate() {
+      if (isAdmin) {
+        switchTab("admin");
+      } else {
+        document.getElementById("admin-gate-modal").classList.remove("hidden");
+      }
+    }
+
+    function verifyAdminPassword(e) {
+      e.preventDefault();
+      const pass = document.getElementById("admin-pass-input").value;
+      if (pass === ADMIN_PASSWORD) {
+        isAdmin = true;
+        sessionStorage.setItem("ttmshop_is_admin", "true");
+        document.getElementById("admin-gate-modal").classList.add("hidden");
+        document.getElementById("admin-pass-input").value = "";
+        switchTab("admin");
+        showToast("Đã mở khóa quyền Admin!");
+      } else {
+        showToast("❌ Sai mật khẩu quản trị!");
+      }
+    }
+
+    function logoutAdmin() {
+      isAdmin = false;
+      sessionStorage.removeItem("ttmshop_is_admin");
+      switchTab("home");
+    }
+
+    function switchAdminSubTab(sub) {
+      document.querySelectorAll(".admin-panel").forEach(p => p.classList.add("hidden"));
+      document.getElementById("admin-panel-" + sub).classList.remove("hidden");
+      document.querySelectorAll(".admin-sub-btn").forEach(b => {
+        b.classList.remove("bg-sky-600", "text-white");
+        b.classList.add("bg-slate-800", "text-slate-300");
+      });
+      document.getElementById("admin-sub-" + sub).classList.add("bg-sky-600", "text-white");
+      document.getElementById("admin-sub-" + sub).classList.remove("bg-slate-800", "text-slate-300");
+      renderAdminPanels();
+    }
+
+    function renderAdminPanels() {
+      // 1. Acc list
+      document.getElementById("admin-acc-list").innerHTML = appState.accounts.map(a => `
+        <div class="p-3 rounded-xl bg-slate-900 border border-slate-800 flex flex-wrap justify-between items-center gap-2 text-xs">
+          <div>
+            <span class="font-bold text-white">[${a.category}] ${a.title}</span> — <span class="text-amber-400 font-bold">${formatMoney(a.price)}</span>
+            <p class="text-slate-400">User: ${a.gameUser} | Trạng thái: ${a.sold ? `Đã bán cho ${a.buyer}` : "Đang bán"}</p>
+          </div>
+          <button onclick="adminDeleteAccount('${a.id}')" class="px-3 py-1.5 rounded-lg bg-rose-600/20 text-rose-400 hover:bg-rose-600 hover:text-white font-bold">Xóa</button>
+        </div>
+      `).join("") || `<p class="text-xs text-slate-500">Kho trống.</p>`;
+
+      // 2. Topups
+      document.getElementById("admin-topup-list").innerHTML = appState.topups.slice().reverse().map(t => `
+        <div class="p-3 rounded-xl bg-slate-900 border border-slate-800 flex flex-wrap justify-between items-center gap-2 text-xs">
+          <div>
+            <p class="font-bold text-white">Khách: <span class="text-sky-400">${t.user}</span> — Nạp: <span class="text-emerald-400">${formatMoney(t.amount)}</span></p>
+            <p class="text-slate-400">Ghi chú: ${t.note} • ${t.time}</p>
+          </div>
+          <div class="flex gap-2">
+            ${t.status === "PENDING" ? `
+              <button onclick="adminHandleTopup('${t.id}', 'APPROVED')" class="px-3 py-1.5 rounded-lg bg-emerald-500 text-slate-950 font-bold">Duyệt & Cộng Tiền</button>
+              <button onclick="adminHandleTopup('${t.id}', 'REJECTED')" class="px-3 py-1.5 rounded-lg bg-rose-600 text-white font-bold">Từ chối</button>
+            ` : `<span class="font-bold ${t.status === 'APPROVED' ? 'text-emerald-400' : 'text-rose-400'}">${t.status}</span>`}
+          </div>
+        </div>
+      `).join("") || `<p class="text-xs text-slate-500">Chưa có yêu cầu nạp tiền nào.</p>`;
+
+      // 3. Users
+      const userEntries = Object.entries(appState.users);
+      document.getElementById("admin-user-list").innerHTML = userEntries.map(([uname, u]) => `
+        <div class="p-3 rounded-xl bg-slate-900 border border-slate-800 flex flex-wrap justify-between items-center gap-2 text-xs">
+          <div>
+            <span class="font-bold text-white">${uname}</span> — Số dư: <span class="text-emerald-400 font-bold">${formatMoney(u.balance)}</span>
+          </div>
+          <div class="flex gap-2">
+            <button onclick="adminAdjustBalance('${uname}', 50000)" class="px-2.5 py-1 rounded bg-emerald-600 text-white font-bold">+50k</button>
+            <button onclick="adminAdjustBalance('${uname}', -50000)" class="px-2.5 py-1 rounded bg-rose-600 text-white font-bold">-50k</button>
+          </div>
+        </div>
+      `).join("") || `<p class="text-xs text-slate-500">Chưa có thành viên đăng ký.</p>`;
+
+      // 4. Settings inputs
+      const s = appState.settings;
+      document.getElementById("cfg-bank-name").value = s.bankName || "";
+      document.getElementById("cfg-bank-acc").value = s.bankAcc || "";
+      document.getElementById("cfg-bank-owner").value = s.bankOwner || "";
+      document.getElementById("cfg-qr-url").value = s.qrUrl || "";
+      document.getElementById("cfg-ejs-service").value = s.ejsService || "";
+      document.getElementById("cfg-ejs-template").value = s.ejsTemplate || "";
+      document.getElementById("cfg-ejs-key").value = s.ejsKey || "";
+      document.getElementById("cfg-gsc-code").value = s.gscCode || "";
+    }
+
+    async function adminAddAccount(e) {
+      e.preventDefault();
+      await syncFromCloud(false);
+      appState.accounts.unshift({
+        id: "ACC" + Math.floor(100 + Math.random() * 900),
+        category: document.getElementById("new-acc-cat").value,
+        title: document.getElementById("new-acc-title").value.trim(),
+        price: Number(document.getElementById("new-acc-price").value),
+        img: document.getElementById("new-acc-img").value.trim(),
+        gameUser: document.getElementById("new-acc-user").value.trim(),
+        gamePass: document.getElementById("new-acc-pass").value.trim(),
+        desc: document.getElementById("new-acc-desc").value.trim(),
+        sold: false,
+        buyer: ""
+      });
+      await pushToCloud();
+      e.target.reset();
+      renderAll();
+      showToast("✅ Đã đăng tài khoản mới lên đám mây!");
+    }
+
+    async function adminDeleteAccount(id) {
+      if (!confirm("Xóa tài khoản này khỏi kho?")) return;
+      await syncFromCloud(false);
+      appState.accounts = appState.accounts.filter(a => a.id !== id);
+      await pushToCloud();
+      renderAll();
+      showToast("Đã xóa tài khoản.");
+    }
+
+    async function adminHandleTopup(id, status) {
+      await syncFromCloud(false);
+      const req = appState.topups.find(t => t.id === id);
+      if (!req || req.status !== "PENDING") return;
+      req.status = status;
+      if (status === "APPROVED" && appState.users[req.user]) {
+        appState.users[req.user].balance = (appState.users[req.user].balance || 0) + req.amount;
+      }
+      await pushToCloud();
+      renderAll();
+      showToast(status === "APPROVED" ? "✅ Đã duyệt và cộng tiền cho khách!" : "Đã từ chối yêu cầu.");
+    }
+
+    async function adminAdjustBalance(uname, delta) {
+      await syncFromCloud(false);
+      if (!appState.users[uname]) return;
+      appState.users[uname].balance = Math.max(0, (appState.users[uname].balance || 0) + delta);
+      await pushToCloud();
+      renderAll();
+      showToast(`Đã cập nhật số dư cho ${uname}!`);
+    }
+
+    async function saveAdminSettings(e) {
+      e.preventDefault();
+      await syncFromCloud(false);
+      appState.settings = {
+        bankName: document.getElementById("cfg-bank-name").value.trim(),
+        bankAcc: document.getElementById("cfg-bank-acc").value.trim(),
+        bankOwner: document.getElementById("cfg-bank-owner").value.trim(),
+        qrUrl: document.getElementById("cfg-qr-url").value.trim(),
+        ejsService: document.getElementById("cfg-ejs-service").value.trim(),
+        ejsTemplate: document.getElementById("cfg-ejs-template").value.trim(),
+        ejsKey: document.getElementById("cfg-ejs-key").value.trim(),
+        gscCode: document.getElementById("cfg-gsc-code").value.trim()
+      };
+      await pushToCloud();
+      renderAll();
+      showToast("✅ Đã lưu & đồng bộ toàn bộ cấu hình lên đám mây!");
+    }
+
+    // KHỞI CHẠY LẦN ĐẦU
+    syncFromCloud(true);
+  </script>
+</body>
+</html>

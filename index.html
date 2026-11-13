@@ -114,14 +114,7 @@
           <p class="text-xs text-slate-400 mt-1">Chọn tài khoản ưng ý và thanh toán tự động bằng số dư trên shop</p>
         </div>
         <div class="flex flex-wrap gap-2">
-          <select id="filter-category" onchange="renderAccounts()" class="px-3 py-2 rounded-xl bg-slate-900 border border-slate-700 text-sm text-white">
-            <option value="ALL">Tất cả danh mục</option>
-            <option value="Liên Quân">Liên Quân Mobile</option>
-            <option value="Free Fire">Free Fire</option>
-            <option value="Roblox">Roblox</option>
-            <option value="Valorant">Valorant / PC</option>
-            <option value="Khác">Game Khác</option>
-          </select>
+          <select id="filter-category" onchange="renderAccounts()" class="px-3 py-2 rounded-xl bg-slate-900 border border-slate-700 text-sm text-white"></select>
           <input type="text" id="search-acc" oninput="renderAccounts()" placeholder="Tìm kiếm mã acc, tướng..." class="px-3 py-2 rounded-xl bg-slate-900 border border-slate-700 text-sm text-white w-48 sm:w-60" />
         </div>
       </div>
@@ -181,7 +174,6 @@
     <!-- TAB: TOPUP (BANK + CARD + GIFTCODE) -->
     <section id="tab-topup" class="tab-section hidden space-y-6">
       <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
-        <!-- CỘT 1: CHUYỂN KHOẢN NGÂN HÀNG -->
         <div class="glass-card rounded-2xl p-6 space-y-4">
           <h3 class="text-lg font-bold text-sky-400">1. Nạp Qua Ngân Hàng / QR</h3>
           <div class="bg-slate-900/90 p-4 rounded-xl border border-slate-800 space-y-2 text-xs sm:text-sm">
@@ -200,10 +192,9 @@
           </form>
         </div>
 
-        <!-- CỘT 2: NẠP THẺ CÀO ĐIỆN THOẠI -->
         <div class="glass-card rounded-2xl p-6 space-y-4">
           <h3 class="text-lg font-bold text-amber-400">2. Nạp Thẻ Cào Điện Thoại</h3>
-          <p class="text-xs text-slate-400">Nhập đúng loại thẻ, mệnh giá, số Seri và mã thẻ. Sai mệnh giá có thể bị trừ chiết khấu.</p>
+          <p class="text-xs text-slate-400">Nhập đúng loại thẻ, mệnh giá, số Seri và mã thẻ.</p>
           <form onsubmit="submitCardTopup(event)" class="space-y-3">
             <div>
               <label class="block text-xs text-slate-400 mb-1">Nhà mạng</label>
@@ -228,27 +219,25 @@
             </div>
             <div>
               <label class="block text-xs text-slate-400 mb-1">Số Seri thẻ</label>
-              <input type="text" id="card-serial" required placeholder="Nhập dãy số Seri in trên thẻ" class="w-full px-3 py-2.5 rounded-xl bg-slate-900 border border-slate-700 text-white text-sm" />
+              <input type="text" id="card-serial" required placeholder="Nhập dãy số Seri" class="w-full px-3 py-2.5 rounded-xl bg-slate-900 border border-slate-700 text-white text-sm" />
             </div>
             <div>
               <label class="block text-xs text-slate-400 mb-1">Mã thẻ (PIN)</label>
-              <input type="text" id="card-pin" required placeholder="Nhập mã số nạp tiền dưới lớp tráng bạc" class="w-full px-3 py-2.5 rounded-xl bg-slate-900 border border-slate-700 text-white text-sm" />
+              <input type="text" id="card-pin" required placeholder="Nhập mã số nạp tiền" class="w-full px-3 py-2.5 rounded-xl bg-slate-900 border border-slate-700 text-white text-sm" />
             </div>
             <button type="submit" class="w-full py-3 rounded-xl bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold text-sm">Gửi Thẻ Cào Nạp Tiền</button>
           </form>
         </div>
 
-        <!-- CỘT 3: NHẬP GIFTCODE + LỊCH SỬ NẠP -->
         <div class="glass-card rounded-2xl p-6 space-y-5">
           <div class="space-y-3">
             <h3 class="text-lg font-bold text-purple-400">3. Nhập Mã Giftcode</h3>
-            <p class="text-xs text-slate-400">Nhập mã quà tặng từ sự kiện của shop để nhận tiền trực tiếp vào tài khoản.</p>
+            <p class="text-xs text-slate-400">Nhập mã quà tặng từ shop để nhận tiền trực tiếp vào tài khoản.</p>
             <form onsubmit="redeemGiftcode(event)" class="flex gap-2">
               <input type="text" id="giftcode-input" required placeholder="VD: TTMSHOP2026" class="flex-1 px-3 py-2.5 rounded-xl bg-slate-900 border border-slate-700 text-white text-sm uppercase font-bold" />
               <button type="submit" class="px-4 py-2.5 rounded-xl bg-purple-600 hover:bg-purple-500 text-white font-bold text-xs">Nhận Quà</button>
             </form>
           </div>
-
           <div class="pt-4 border-t border-slate-800 space-y-2">
             <h4 class="text-xs font-bold text-slate-300">Trạng thái các đơn nạp của bạn</h4>
             <div id="user-topup-list" class="space-y-2 max-h-72 overflow-y-auto text-xs"></div>
@@ -257,39 +246,29 @@
       </div>
     </section>
 
-    <!-- TAB: USER ACCOUNT, ORDERS, BALANCE LOGS & CHANGE PASSWORD -->
+    <!-- TAB: USER ACCOUNT -->
     <section id="tab-history" class="tab-section hidden space-y-6">
       <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
-        <!-- CỘT TRÁI: ACC ĐÃ MUA & ĐƠN CÀY THUÊ -->
         <div class="lg:col-span-2 space-y-6">
           <div class="glass-card rounded-2xl p-6 space-y-4">
             <h2 class="text-lg font-bold text-white">Tài Khoản Game Đã Mua</h2>
             <div id="purchase-history-list" class="space-y-3"></div>
           </div>
-
           <div class="glass-card rounded-2xl p-6 space-y-4">
             <h2 class="text-lg font-bold text-indigo-400">Lịch Sử Đặt Đơn Cày Thuê / Nạp Game</h2>
             <div id="user-boost-list" class="space-y-3"></div>
           </div>
-
           <div class="glass-card rounded-2xl p-6 space-y-4">
             <h2 class="text-lg font-bold text-emerald-400">Biến Động Số Dư Tài Khoản</h2>
             <div id="balance-logs-list" class="space-y-2 max-h-64 overflow-y-auto text-xs"></div>
           </div>
         </div>
 
-        <!-- CỘT PHẢI: ĐỔI MẬT KHẨU -->
         <div class="glass-card rounded-2xl p-6 space-y-4 h-fit">
           <h3 class="text-base font-bold text-amber-400">Bảo Mật & Đổi Mật Khẩu</h3>
           <form onsubmit="changeUserPassword(event)" class="space-y-3">
-            <div>
-              <label class="block text-xs text-slate-400 mb-1">Mật khẩu hiện tại</label>
-              <input type="password" id="old-user-pass" required class="w-full px-3 py-2 rounded-xl bg-slate-900 border border-slate-700 text-white text-sm" />
-            </div>
-            <div>
-              <label class="block text-xs text-slate-400 mb-1">Mật khẩu mới</label>
-              <input type="password" id="new-user-pass" required minlength="4" class="w-full px-3 py-2 rounded-xl bg-slate-900 border border-slate-700 text-white text-sm" />
-            </div>
+            <div><label class="block text-xs text-slate-400 mb-1">Mật khẩu hiện tại</label><input type="password" id="old-user-pass" required class="w-full px-3 py-2 rounded-xl bg-slate-900 border border-slate-700 text-white text-sm" /></div>
+            <div><label class="block text-xs text-slate-400 mb-1">Mật khẩu mới</label><input type="password" id="new-user-pass" required minlength="4" class="w-full px-3 py-2 rounded-xl bg-slate-900 border border-slate-700 text-white text-sm" /></div>
             <button type="submit" class="w-full py-2.5 rounded-xl bg-sky-500 hover:bg-sky-400 text-slate-950 font-bold text-sm">Cập Nhật Mật Khẩu</button>
           </form>
         </div>
@@ -301,7 +280,7 @@
       <div class="flex flex-wrap items-center justify-between gap-3 bg-amber-500/10 border border-amber-500/30 p-4 rounded-2xl">
         <div>
           <h2 class="text-xl font-extrabold text-amber-400">Bảng Quản Trị Toàn Diện TTMShop</h2>
-          <p class="text-xs text-slate-300">Quản lý kho acc, dịch vụ cày thuê, duyệt nạp bank/thẻ cào, giftcode, tỷ lệ quay và chat khách hàng.</p>
+          <p class="text-xs text-slate-300">Quản lý danh mục game, kho acc, dịch vụ cày thuê, duyệt nạp, giftcode và cộng/trừ tiền tự do.</p>
         </div>
         <button onclick="logoutAdmin()" class="px-4 py-2 rounded-xl bg-rose-600 hover:bg-rose-500 text-white text-xs font-bold">Thoát Admin</button>
       </div>
@@ -316,17 +295,28 @@
 
       <!-- ADMIN SUB-TABS -->
       <div class="flex flex-wrap gap-1.5 border-b border-slate-800 pb-3 text-xs font-bold">
-        <button onclick="switchAdminSubTab('acc')" id="admin-sub-acc" class="admin-sub-btn px-3 py-2 rounded-xl bg-sky-600 text-white">1. Kho Acc</button>
-        <button onclick="switchAdminSubTab('boost')" id="admin-sub-boost" class="admin-sub-btn px-3 py-2 rounded-xl bg-slate-800 text-slate-300">2. Cày Thuê</button>
+        <button onclick="switchAdminSubTab('acc')" id="admin-sub-acc" class="admin-sub-btn px-3 py-2 rounded-xl bg-sky-600 text-white">1. Kho Acc & Danh Mục</button>
+        <button onclick="switchAdminSubTab('boost')" id="admin-sub-boost" class="admin-sub-btn px-3 py-2 rounded-xl bg-slate-800 text-slate-300">2. Dịch Vụ Cày Thuê</button>
         <button onclick="switchAdminSubTab('topup')" id="admin-sub-topup" class="admin-sub-btn px-3 py-2 rounded-xl bg-slate-800 text-slate-300">3. Duyệt Nạp Bank/Thẻ</button>
         <button onclick="switchAdminSubTab('gift')" id="admin-sub-gift" class="admin-sub-btn px-3 py-2 rounded-xl bg-slate-800 text-slate-300">4. Giftcode</button>
-        <button onclick="switchAdminSubTab('users')" id="admin-sub-users" class="admin-sub-btn px-3 py-2 rounded-xl bg-slate-800 text-slate-300">5. Thành Viên</button>
+        <button onclick="switchAdminSubTab('users')" id="admin-sub-users" class="admin-sub-btn px-3 py-2 rounded-xl bg-slate-800 text-slate-300">5. Thành Viên (Cộng/Trừ Tự Do)</button>
         <button onclick="switchAdminSubTab('wheel')" id="admin-sub-wheel" class="admin-sub-btn px-3 py-2 rounded-xl bg-slate-800 text-slate-300">6. Vòng Quay</button>
         <button onclick="switchAdminSubTab('settings')" id="admin-sub-settings" class="admin-sub-btn px-3 py-2 rounded-xl bg-slate-800 text-slate-300">7. Cài Đặt Hệ Thống</button>
       </div>
 
-      <!-- SUB-TAB 1: MANAGE ACCOUNTS -->
+      <!-- SUB-TAB 1: MANAGE CATEGORIES & ACCOUNTS -->
       <div id="admin-panel-acc" class="admin-panel space-y-6">
+        <!-- QUẢN LÝ DANH MỤC GAME (THÊM / XÓA) -->
+        <div class="glass-card p-5 rounded-2xl space-y-3">
+          <h3 class="text-base font-bold text-amber-400">Quản Lý Danh Mục Game (Thêm / Xóa Mục)</h3>
+          <form onsubmit="adminAddCategory(event)" class="flex flex-wrap gap-2">
+            <input type="text" id="new-cat-name" required placeholder="Tên danh mục game mới (VD: PUBG Mobile, Ngọc Rồng...)" class="flex-1 min-w-[220px] px-3 py-2 rounded-xl bg-slate-900 border border-slate-700 text-sm text-white" />
+            <button type="submit" class="px-4 py-2 rounded-xl bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold text-xs">+ Thêm Danh Mục</button>
+          </form>
+          <div id="admin-cat-list" class="flex flex-wrap gap-2 pt-1"></div>
+        </div>
+
+        <!-- ĐĂNG / SỬA ACC -->
         <form onsubmit="adminSaveAccount(event)" class="glass-card p-5 rounded-2xl grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
           <input type="hidden" id="edit-acc-id" value="" />
           <div class="sm:col-span-2 lg:col-span-3 flex justify-between items-center">
@@ -335,13 +325,7 @@
           </div>
           <div>
             <label class="block text-xs text-slate-400 mb-1">Danh mục game</label>
-            <select id="new-acc-cat" class="w-full px-3 py-2 rounded-xl bg-slate-900 border border-slate-700 text-sm text-white">
-              <option value="Liên Quân">Liên Quân Mobile</option>
-              <option value="Free Fire">Free Fire</option>
-              <option value="Roblox">Roblox</option>
-              <option value="Valorant">Valorant / PC</option>
-              <option value="Khác">Game Khác</option>
-            </select>
+            <select id="new-acc-cat" required class="w-full px-3 py-2 rounded-xl bg-slate-900 border border-slate-700 text-sm text-white"></select>
           </div>
           <div><label class="block text-xs text-slate-400 mb-1">Tiêu đề Acc</label><input type="text" id="new-acc-title" required class="w-full px-3 py-2 rounded-xl bg-slate-900 border border-slate-700 text-sm text-white" /></div>
           <div><label class="block text-xs text-slate-400 mb-1">Giá bán (VNĐ)</label><input type="number" id="new-acc-price" required min="1000" class="w-full px-3 py-2 rounded-xl bg-slate-900 border border-slate-700 text-sm text-white" /></div>
@@ -351,7 +335,14 @@
           <div class="sm:col-span-2 lg:col-span-3"><label class="block text-xs text-slate-400 mb-1">Mô tả chi tiết</label><input type="text" id="new-acc-desc" required class="w-full px-3 py-2 rounded-xl bg-slate-900 border border-slate-700 text-sm text-white" /></div>
           <div class="sm:col-span-2 lg:col-span-3"><button type="submit" id="submit-acc-btn" class="px-6 py-2.5 rounded-xl bg-sky-500 hover:bg-sky-400 text-slate-950 font-bold text-sm">+ Đăng Lên Shop Ngay</button></div>
         </form>
-        <div class="glass-card p-5 rounded-2xl space-y-3"><h3 class="text-base font-bold text-white">Danh Sách Kho Acc</h3><div id="admin-acc-list" class="space-y-2"></div></div>
+
+        <div class="glass-card p-5 rounded-2xl space-y-3">
+          <div class="flex justify-between items-center">
+            <h3 class="text-base font-bold text-white">Danh Sách Kho Acc</h3>
+            <button onclick="adminClearAllAccounts()" class="px-3 py-1 rounded-lg bg-rose-600/20 text-rose-400 hover:bg-rose-600 hover:text-white text-xs font-bold">Xóa Tất Cả Acc</button>
+          </div>
+          <div id="admin-acc-list" class="space-y-2"></div>
+        </div>
       </div>
 
       <!-- SUB-TAB 2: BOOSTING MANAGEMENT -->
@@ -367,7 +358,7 @@
         <div class="glass-card p-5 rounded-2xl space-y-3"><h3 class="text-base font-bold text-amber-400">Đơn Hàng Cày Thuê Khách Đã Đặt</h3><div id="admin-boost-orders-list" class="space-y-2"></div></div>
       </div>
 
-      <!-- SUB-TAB 3: TOPUP REQUESTS (BANK + CARD) -->
+      <!-- SUB-TAB 3: TOPUP REQUESTS -->
       <div id="admin-panel-topup" class="admin-panel hidden glass-card p-5 rounded-2xl space-y-4">
         <h3 class="text-base font-bold text-white">Duyệt Yêu Cầu Nạp Tiền (Chuyển Khoản & Thẻ Cào)</h3>
         <div id="admin-topup-list" class="space-y-3"></div>
@@ -385,9 +376,12 @@
         <div class="glass-card p-5 rounded-2xl space-y-3"><h3 class="text-base font-bold text-white">Danh Sách Giftcode Đang Hoạt Động</h3><div id="admin-gift-list" class="space-y-2"></div></div>
       </div>
 
-      <!-- SUB-TAB 5: USERS -->
+      <!-- SUB-TAB 5: USERS (CỘNG / TRỪ TIỀN TỰ DO) -->
       <div id="admin-panel-users" class="admin-panel hidden glass-card p-5 rounded-2xl space-y-4">
-        <h3 class="text-base font-bold text-white">Quản Lý Thành Viên & Cộng / Trừ Tiền</h3>
+        <div>
+          <h3 class="text-base font-bold text-white">Quản Lý Thành Viên & Cộng / Trừ Tiền Tự Do</h3>
+          <p class="text-xs text-slate-400">Nhập số tiền bất kỳ vào ô bên cạnh tên thành viên rồi bấm Cộng Tiền hoặc Trừ Tiền.</p>
+        </div>
         <div id="admin-user-list" class="space-y-3"></div>
       </div>
 
@@ -498,6 +492,7 @@
     const ADMIN_PASSWORD = "Minh2010";
 
     const DEFAULT_STATE = {
+      initialized: true,
       settings: {
         marquee: "Chào mừng đến với TTMShop! Nạp Bank/Thẻ cào 24/7 - Giao Acc & Cày Thuê siêu tốc!",
         bankName: "MB Bank",
@@ -510,6 +505,7 @@
         gscCode: "CJnbeOW7Fg2Z0fwY8_CQncD1C-W01CvhJtetKJMUqm0",
         spinCost: 20000
       },
+      categories: ["Liên Quân", "Free Fire", "Roblox", "Valorant", "Khác"],
       prizes: [
         { label: "Chúc may mắn", value: 0, weight: 40, color: "#1e293b" },
         { label: "+10.000đ", value: 10000, weight: 25, color: "#0284c7" },
@@ -541,7 +537,7 @@
         { code: "TTMSHOP2026", amount: 10000, usesLeft: 50, usedBy: [] }
       ],
       messages: [
-        { sender: "Admin", text: "Xin chào! Bạn cần hỗ trợ mua acc hoặc nạp tiền hãy nhắn tại đây nhé.", time: "Hệ thống" }
+        { sender: "Admin", isAdmin: true, text: "Xin chào! Bạn cần hỗ trợ mua acc hoặc nạp tiền hãy nhắn tại đây nhé.", time: "Hệ thống" }
       ],
       balanceLogs: [],
       users: {},
@@ -570,6 +566,7 @@
       if (appState.balanceLogs.length > 200) appState.balanceLogs.shift();
     }
 
+    // ĐỒNG BỘ FIREBASE (ĐÃ SỬA LỖI XÓA MỤC BỊ TỰ MỌC LẠI)
     async function syncFromCloud(isInitial = false) {
       try {
         const res = await fetch(`${FIREBASE_DB_URL}/shopData.json`);
@@ -578,13 +575,15 @@
         if (!data) {
           await pushToCloud();
         } else {
+          appState.initialized = true;
           appState.settings = Object.assign({}, DEFAULT_STATE.settings, data.settings || {});
+          appState.categories = Array.isArray(data.categories) ? data.categories : (data.initialized ? [] : DEFAULT_STATE.categories);
           appState.prizes = Array.isArray(data.prizes) && data.prizes.length ? data.prizes : DEFAULT_STATE.prizes;
           appState.accounts = Array.isArray(data.accounts) ? data.accounts : (data.accounts ? Object.values(data.accounts) : []);
-          appState.boostServices = Array.isArray(data.boostServices) ? data.boostServices : DEFAULT_STATE.boostServices;
+          appState.boostServices = Array.isArray(data.boostServices) ? data.boostServices : (data.initialized ? [] : DEFAULT_STATE.boostServices);
           appState.boostOrders = Array.isArray(data.boostOrders) ? data.boostOrders : [];
-          appState.giftcodes = Array.isArray(data.giftcodes) ? data.giftcodes : DEFAULT_STATE.giftcodes;
-          appState.messages = Array.isArray(data.messages) ? data.messages : DEFAULT_STATE.messages;
+          appState.giftcodes = Array.isArray(data.giftcodes) ? data.giftcodes : (data.initialized ? [] : DEFAULT_STATE.giftcodes);
+          appState.messages = Array.isArray(data.messages) ? data.messages : [];
           appState.balanceLogs = Array.isArray(data.balanceLogs) ? data.balanceLogs : [];
           appState.users = data.users || {};
           appState.topups = Array.isArray(data.topups) ? data.topups : (data.topups ? Object.values(data.topups) : []);
@@ -601,6 +600,7 @@
     }
 
     async function pushToCloud() {
+      appState.initialized = true;
       localStorage.setItem("ttmshop_cache", JSON.stringify(appState));
       try {
         await fetch(`${FIREBASE_DB_URL}/shopData.json`, {
@@ -632,12 +632,28 @@
       document.getElementById("display-spin-cost").textContent = formatMoney(appState.settings.spinCost || 20000);
       renderAuthArea();
       renderStats();
+      renderCategoriesUI();
       renderAccounts();
       renderBoosting();
       renderTopupInfo();
       renderHistory();
       renderChat();
       if (isAdmin) renderAdminPanels(forceFormRefresh);
+    }
+
+    function renderCategoriesUI() {
+      const cats = appState.categories || [];
+      const filterSel = document.getElementById("filter-category");
+      const curFilter = filterSel.value || "ALL";
+      filterSel.innerHTML = `<option value="ALL">Tất cả danh mục (${cats.length})</option>` + cats.map(c => `<option value="${c}">${c}</option>`).join("");
+      filterSel.value = cats.includes(curFilter) ? curFilter : "ALL";
+
+      const newAccSel = document.getElementById("new-acc-cat");
+      if (newAccSel) {
+        const curNew = newAccSel.value;
+        newAccSel.innerHTML = cats.map(c => `<option value="${c}">${c}</option>`).join("") || `<option value="Khác">Khác</option>`;
+        if (cats.includes(curNew)) newAccSel.value = curNew;
+      }
     }
 
     function renderAuthArea() {
@@ -698,7 +714,7 @@
       document.getElementById("all-accounts-grid").innerHTML = filtered.map(createAccountCard).join("") || `<p class="text-xs text-slate-400">Không tìm thấy tài khoản phù hợp.</p>`;
     }
 
-    // 1. DỊCH VỤ CÀY THUÊ / NẠP GAME
+    // DỊCH VỤ CÀY THUÊ
     function renderBoosting() {
       const grid = document.getElementById("boost-services-grid");
       const sel = document.getElementById("order-boost-service");
@@ -708,11 +724,11 @@
           <h4 class="font-bold text-white text-base">${s.name}</h4>
           <p class="text-xs text-slate-400">${s.desc}</p>
           <p class="text-lg font-extrabold text-amber-400 pt-2">${formatMoney(s.price)}</p>
-        </div>`).join("") || `<p class="text-xs text-slate-400">Chưa có gói dịch vụ nào.</p>`;
+        </div>`).join("") || `<p class="text-xs text-slate-400">Hiện chưa có gói dịch vụ nào.</p>`;
 
       const currentVal = sel.value;
-      sel.innerHTML = appState.boostServices.map(s => `<option value="${s.id}">${s.name} (${formatMoney(s.price)})</option>`).join("");
-      if (currentVal) sel.value = currentVal;
+      sel.innerHTML = appState.boostServices.map(s => `<option value="${s.id}">${s.name} (${formatMoney(s.price)})</option>`).join("") || `<option value="">Chưa có gói dịch vụ</option>`;
+      if (currentVal && appState.boostServices.some(s => s.id === currentVal)) sel.value = currentVal;
     }
 
     async function submitBoostOrder(e) {
@@ -721,7 +737,7 @@
       const svcId = document.getElementById("order-boost-service").value;
       await syncFromCloud(false);
       const svc = appState.boostServices.find(s => s.id === svcId);
-      if (!svc) return;
+      if (!svc) { showToast("Gói dịch vụ không khả dụng!"); return; }
       const user = appState.users[currentUser];
       if (user.balance < svc.price) { showToast("❌ Số dư không đủ để đặt dịch vụ!"); switchTab("topup"); return; }
       if (!confirm(`Thanh toán ${formatMoney(svc.price)} cho gói "${svc.name}"?`)) return;
@@ -740,10 +756,8 @@
         time: new Date().toLocaleString("vi-VN")
       });
       await pushToCloud();
-      e.target.reset();
-      renderAll(false);
-      showToast("✅ Đặt đơn cày thuê thành công!");
-      switchTab("history");
+      e.target.reset(); renderAll(false);
+      showToast("✅ Đặt đơn cày thuê thành công!"); switchTab("history");
     }
 
     // AUTH & OTP
@@ -817,7 +831,7 @@
       renderAll(false); showToast("🎉 Mua acc thành công!"); switchTab("history");
     }
 
-    // 2 & 3. NẠP BANK + THẺ CÀO + GIFTCODE
+    // NẠP BANK + THẺ CÀO + GIFTCODE
     function renderTopupInfo() {
       const s = appState.settings;
       document.getElementById("display-bank-name").textContent = s.bankName || "MB Bank";
@@ -841,13 +855,10 @@
       if (!currentUser) { openAuthModal(); return; }
       await syncFromCloud(false);
       appState.topups.push({
-        id: "TOP" + Date.now(),
-        method: "Bank",
-        user: currentUser,
+        id: "TOP" + Date.now(), method: "Bank", user: currentUser,
         amount: Number(document.getElementById("topup-amount").value),
         note: document.getElementById("topup-note").value.trim(),
-        status: "PENDING",
-        time: new Date().toLocaleString("vi-VN")
+        status: "PENDING", time: new Date().toLocaleString("vi-VN")
       });
       await pushToCloud(); e.target.reset(); renderTopupInfo();
       showToast("✅ Đã gửi xác nhận chuyển khoản!");
@@ -856,19 +867,12 @@
     async function submitCardTopup(e) {
       e.preventDefault();
       if (!currentUser) { openAuthModal(); return; }
-      const telco = document.getElementById("card-telco").value;
-      const amount = Number(document.getElementById("card-amount").value);
-      const serial = document.getElementById("card-serial").value.trim();
-      const pin = document.getElementById("card-pin").value.trim();
       await syncFromCloud(false);
       appState.topups.push({
-        id: "CARD" + Date.now(),
-        method: "Thẻ " + telco,
-        user: currentUser,
-        amount,
-        note: `Seri: ${serial} | PIN: ${pin}`,
-        status: "PENDING",
-        time: new Date().toLocaleString("vi-VN")
+        id: "CARD" + Date.now(), method: "Thẻ " + document.getElementById("card-telco").value,
+        user: currentUser, amount: Number(document.getElementById("card-amount").value),
+        note: `Seri: ${document.getElementById("card-serial").value.trim()} | PIN: ${document.getElementById("card-pin").value.trim()}`,
+        status: "PENDING", time: new Date().toLocaleString("vi-VN")
       });
       await pushToCloud(); e.target.reset(); renderTopupInfo();
       showToast("✅ Đã gửi thẻ cào! Admin sẽ kiểm tra và cộng tiền.");
@@ -889,12 +893,11 @@
       gf.usedBy.push(currentUser);
       appState.users[currentUser].balance = (appState.users[currentUser].balance || 0) + Number(gf.amount);
       addBalanceLog(currentUser, Number(gf.amount), `Nhập Giftcode: ${gf.code}`);
-      await pushToCloud();
-      e.target.reset(); renderAll(false);
+      await pushToCloud(); e.target.reset(); renderAll(false);
       showToast(`🎉 Nhập mã thành công! Nhận ngay ${formatMoney(gf.amount)}`);
     }
 
-    // 4. LỊCH SỬ, BIẾN ĐỘNG SỐ DƯ & ĐỔI MẬT KHẨU
+    // LỊCH SỬ & ĐỔI MẬT KHẨU
     function renderHistory() {
       const accBox = document.getElementById("purchase-history-list");
       const boostBox = document.getElementById("user-boost-list");
@@ -939,25 +942,18 @@
         showToast("❌ Mật khẩu hiện tại không đúng!"); return;
       }
       appState.users[currentUser].password = newP;
-      await pushToCloud();
-      e.target.reset();
+      await pushToCloud(); e.target.reset();
       showToast("✅ Đổi mật khẩu thành công!");
     }
 
-    // LIVE CHAT HỖ TRỢ TRỰC TUYẾN
-    function toggleChatBox() {
-      document.getElementById("live-chat-box").classList.toggle("hidden");
-      renderChat();
-    }
-
+    // LIVE CHAT
+    function toggleChatBox() { document.getElementById("live-chat-box").classList.toggle("hidden"); renderChat(); }
     function renderChat() {
       const box = document.getElementById("chat-messages-area");
       if (!box) return;
       box.innerHTML = appState.messages.slice(-30).map(m => `
         <div class="p-2 rounded-xl ${m.isAdmin ? 'bg-amber-500/15 border border-amber-500/30 text-amber-200' : 'bg-slate-900 border border-slate-800 text-slate-200'}">
-          <div class="flex justify-between text-[10px] opacity-70 mb-0.5">
-            <strong>${m.sender}</strong><span>${m.time}</span>
-          </div>
+          <div class="flex justify-between text-[10px] opacity-70 mb-0.5"><strong>${m.sender}</strong><span>${m.time}</span></div>
           <p>${m.text}</p>
         </div>`).join("");
       box.scrollTop = box.scrollHeight;
@@ -971,14 +967,10 @@
       await syncFromCloud(false);
       appState.messages.push({
         sender: isAdmin ? "👑 Admin TTMShop" : (currentUser || "Khách vãng lai"),
-        isAdmin: isAdmin,
-        text,
-        time: new Date().toLocaleTimeString("vi-VN", { hour: "2-digit", minute: "2-digit" })
+        isAdmin, text, time: new Date().toLocaleTimeString("vi-VN", { hour: "2-digit", minute: "2-digit" })
       });
       if (appState.messages.length > 60) appState.messages.shift();
-      await pushToCloud();
-      input.value = "";
-      renderChat();
+      await pushToCloud(); input.value = ""; renderChat();
     }
 
     // VÒNG QUAY MAY MẮN
@@ -1072,6 +1064,14 @@
       document.getElementById("adm-pending-topup").textContent = pendingCount;
       document.getElementById("adm-total-users").textContent = Object.keys(appState.users).length;
 
+      // Danh mục game (Thêm / Xóa)
+      document.getElementById("admin-cat-list").innerHTML = (appState.categories || []).map((c, i) => `
+        <span class="inline-flex items-center gap-2 px-3 py-1.5 rounded-xl bg-slate-900 border border-slate-700 text-xs text-white">
+          <strong>${c}</strong>
+          <button type="button" onclick="adminDeleteCategory(${i})" class="text-rose-400 hover:text-rose-300 font-bold">✕</button>
+        </span>`).join("") || `<p class="text-xs text-slate-500">Chưa có danh mục nào.</p>`;
+
+      // Kho Acc
       document.getElementById("admin-acc-list").innerHTML = appState.accounts.map(a => `
         <div class="p-3 rounded-xl bg-slate-900 border border-slate-800 flex flex-wrap justify-between items-center gap-2 text-xs">
           <div><span class="font-bold text-white">[${a.category}] ${a.title}</span> — <span class="text-amber-400 font-bold">${formatMoney(a.price)}</span><p class="text-slate-400">User: ${a.gameUser} | ${a.sold ? `Đã bán cho ${a.buyer}` : "Đang bán"}</p></div>
@@ -1079,13 +1079,14 @@
             <button onclick="adminEditAccount('${a.id}')" class="px-3 py-1.5 rounded-lg bg-sky-600/20 text-sky-400 font-bold">Sửa</button>
             <button onclick="adminDeleteAccount('${a.id}')" class="px-3 py-1.5 rounded-lg bg-rose-600/20 text-rose-400 font-bold">Xóa</button>
           </div>
-        </div>`).join("") || `<p class="text-xs text-slate-500">Kho trống.</p>`;
+        </div>`).join("") || `<p class="text-xs text-slate-500">Kho acc đang trống.</p>`;
 
+      // Dịch vụ cày thuê
       document.getElementById("admin-boost-services-list").innerHTML = appState.boostServices.map(s => `
         <div class="p-3 rounded-xl bg-slate-900 border border-slate-800 flex justify-between items-center text-xs">
           <div><span class="font-bold text-white">${s.name}</span> — <span class="text-amber-400 font-bold">${formatMoney(s.price)}</span><p class="text-slate-400">${s.desc}</p></div>
-          <button onclick="adminDeleteBoostService('${s.id}')" class="px-3 py-1 rounded bg-rose-600/20 text-rose-400 font-bold">Xóa</button>
-        </div>`).join("");
+          <button onclick="adminDeleteBoostService('${s.id}')" class="px-3 py-1 rounded bg-rose-600/20 text-rose-400 hover:bg-rose-600 hover:text-white font-bold">Xóa</button>
+        </div>`).join("") || `<p class="text-xs text-slate-500">Chưa có gói dịch vụ nào.</p>`;
 
       document.getElementById("admin-boost-orders-list").innerHTML = appState.boostOrders.slice().reverse().map(o => `
         <div class="p-3 rounded-xl bg-slate-900 border border-slate-800 flex flex-wrap justify-between items-center gap-2 text-xs">
@@ -1100,6 +1101,7 @@
           </div>
         </div>`).join("") || `<p class="text-xs text-slate-500">Chưa có đơn cày thuê nào.</p>`;
 
+      // Duyệt nạp
       document.getElementById("admin-topup-list").innerHTML = appState.topups.slice().reverse().map(t => `
         <div class="p-3 rounded-xl bg-slate-900 border border-slate-800 flex flex-wrap justify-between items-center gap-2 text-xs">
           <div>
@@ -1114,21 +1116,34 @@
           </div>
         </div>`).join("") || `<p class="text-xs text-slate-500">Chưa có yêu cầu nạp tiền nào.</p>`;
 
+      // Giftcode
       document.getElementById("admin-gift-list").innerHTML = appState.giftcodes.map(g => `
         <div class="p-3 rounded-xl bg-slate-900 border border-slate-800 flex justify-between items-center text-xs">
           <div><span class="font-bold text-purple-400 font-mono text-sm">${g.code}</span> — Thưởng: <span class="text-emerald-400 font-bold">${formatMoney(g.amount)}</span> (Còn ${g.usesLeft} lượt)</div>
           <button onclick="adminDeleteGiftcode('${g.code}')" class="px-3 py-1 rounded bg-rose-600/20 text-rose-400 font-bold">Xóa</button>
-        </div>`).join("");
+        </div>`).join("") || `<p class="text-xs text-slate-500">Chưa có mã Giftcode nào.</p>`;
 
-      document.getElementById("admin-user-list").innerHTML = Object.entries(appState.users).map(([uname, u]) => `
-        <div class="p-3 rounded-xl bg-slate-900 border border-slate-800 flex flex-wrap justify-between items-center gap-2 text-xs">
-          <div><span class="font-bold text-white">${uname}</span> — Số dư: <span class="text-emerald-400 font-bold">${formatMoney(u.balance)}</span></div>
-          <div class="flex gap-2">
-            <button onclick="adminAdjustBalance('${uname}', 50000)" class="px-2.5 py-1 rounded bg-emerald-600 text-white font-bold">+50k</button>
-            <button onclick="adminAdjustBalance('${uname}', 100000)" class="px-2.5 py-1 rounded bg-emerald-600 text-white font-bold">+100k</button>
-            <button onclick="adminAdjustBalance('${uname}', -50000)" class="px-2.5 py-1 rounded bg-rose-600 text-white font-bold">-50k</button>
-          </div>
-        </div>`).join("") || `<p class="text-xs text-slate-500">Chưa có thành viên.</p>`;
+      // Thành viên (Cộng / Trừ tiền tự do - chỉ render lại khi không gõ vào ô số tiền)
+      const activeId = document.activeElement ? document.activeElement.id : "";
+      if (!activeId.startsWith("custom-amt-")) {
+        const savedVals = {};
+        Object.keys(appState.users).forEach(u => {
+          const inp = document.getElementById("custom-amt-" + u);
+          if (inp && inp.value) savedVals[u] = inp.value;
+        });
+
+        document.getElementById("admin-user-list").innerHTML = Object.entries(appState.users).map(([uname, u]) => `
+          <div class="p-3 rounded-xl bg-slate-900 border border-slate-800 flex flex-wrap justify-between items-center gap-3 text-xs">
+            <div>
+              <span class="font-bold text-white text-sm">${uname}</span> — Số dư: <span class="text-emerald-400 font-extrabold text-sm">${formatMoney(u.balance)}</span>
+            </div>
+            <div class="flex flex-wrap items-center gap-2">
+              <input type="number" id="custom-amt-${uname}" value="${savedVals[uname] || ''}" min="1" placeholder="Nhập số tiền bất kỳ..." class="w-40 px-2.5 py-1.5 rounded-lg bg-slate-950 border border-slate-700 text-white" />
+              <button type="button" onclick="adminCustomAdjust('${uname}', 1)" class="px-3 py-1.5 rounded-lg bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-bold">+ Cộng Tiền</button>
+              <button type="button" onclick="adminCustomAdjust('${uname}', -1)" class="px-3 py-1.5 rounded-lg bg-rose-600 hover:bg-rose-500 text-white font-bold">- Trừ Tiền</button>
+            </div>
+          </div>`).join("") || `<p class="text-xs text-slate-500">Chưa có thành viên.</p>`;
+      }
 
       if (!adminSettingsLoaded || forceFormRefresh) {
         adminSettingsLoaded = true;
@@ -1154,6 +1169,30 @@
       }
     }
 
+    // DANH MỤC GAME (THÊM / XÓA)
+    async function adminAddCategory(e) {
+      e.preventDefault();
+      const name = document.getElementById("new-cat-name").value.trim();
+      if (!name) return;
+      await syncFromCloud(false);
+      if (!appState.categories) appState.categories = [];
+      if (appState.categories.includes(name)) { showToast("Danh mục này đã tồn tại!"); return; }
+      appState.categories.push(name);
+      await pushToCloud();
+      e.target.reset(); renderAll(false);
+      showToast(`✅ Đã thêm danh mục "${name}"!`);
+    }
+
+    async function adminDeleteCategory(idx) {
+      if (!confirm("Xóa danh mục game này?")) return;
+      await syncFromCloud(false);
+      appState.categories.splice(idx, 1);
+      await pushToCloud();
+      renderAll(false);
+      showToast("Đã xóa danh mục.");
+    }
+
+    // KHO ACC
     function adminEditAccount(id) {
       const a = appState.accounts.find(x => x.id === id);
       if (!a) return;
@@ -1175,7 +1214,7 @@
       document.getElementById("acc-form-heading").textContent = "+ Đăng Tài Khoản Mới Lên Shop";
       document.getElementById("submit-acc-btn").textContent = "+ Đăng Lên Shop Ngay";
       document.getElementById("cancel-edit-acc-btn").classList.add("hidden");
-      document.querySelector("#admin-panel-acc form").reset();
+      document.querySelector("#admin-panel-acc form:last-of-type").reset();
     }
 
     async function adminSaveAccount(e) {
@@ -1201,16 +1240,46 @@
       showToast("✅ Đã lưu thông tin tài khoản!");
     }
 
-    async function adminDeleteAccount(id) { if (!confirm("Xóa acc này?")) return; await syncFromCloud(false); appState.accounts = appState.accounts.filter(a => a.id !== id); await pushToCloud(); renderAll(false); }
+    async function adminDeleteAccount(id) {
+      if (!confirm("Xóa tài khoản này?")) return;
+      await syncFromCloud(false);
+      appState.accounts = appState.accounts.filter(a => a.id !== id);
+      await pushToCloud(); renderAll(false);
+      showToast("Đã xóa tài khoản.");
+    }
 
+    async function adminClearAllAccounts() {
+      if (!confirm("Bạn chắc chắn muốn xóa TOÀN BỘ tài khoản trong kho?")) return;
+      await syncFromCloud(false);
+      appState.accounts = [];
+      await pushToCloud(); renderAll(false);
+      showToast("Đã xóa toàn bộ kho acc.");
+    }
+
+    // DỊCH VỤ CÀY THUÊ (XÓA KHÔNG TỰ MỌC LẠI)
     async function adminAddBoostService(e) {
       e.preventDefault();
       await syncFromCloud(false);
       appState.boostServices.push({ id: "BST" + Date.now(), name: document.getElementById("bst-name").value.trim(), price: Number(document.getElementById("bst-price").value), desc: document.getElementById("bst-desc").value.trim() });
-      await pushToCloud(); e.target.reset(); renderAll(false); showToast("✅ Đã thêm gói dịch vụ!");
+      await pushToCloud(); e.target.reset(); renderAll(false);
+      showToast("✅ Đã thêm gói dịch vụ!");
     }
-    async function adminDeleteBoostService(id) { await syncFromCloud(false); appState.boostServices = appState.boostServices.filter(s => s.id !== id); await pushToCloud(); renderAll(false); }
-    async function adminCompleteBoostOrder(id) { await syncFromCloud(false); const o = appState.boostOrders.find(x => x.id === id); if (o) o.status = "Hoàn thành"; await pushToCloud(); renderAll(false); showToast("✅ Đã hoàn thành đơn cày thuê!"); }
+
+    async function adminDeleteBoostService(id) {
+      if (!confirm("Xóa gói dịch vụ này?")) return;
+      await syncFromCloud(false);
+      appState.boostServices = appState.boostServices.filter(s => s.id !== id);
+      await pushToCloud(); renderAll(false);
+      showToast("Đã xóa gói dịch vụ.");
+    }
+
+    async function adminCompleteBoostOrder(id) {
+      await syncFromCloud(false);
+      const o = appState.boostOrders.find(x => x.id === id);
+      if (o) o.status = "Hoàn thành";
+      await pushToCloud(); renderAll(false);
+      showToast("✅ Đã hoàn thành đơn cày thuê!");
+    }
 
     async function adminHandleTopup(id, status) {
       await syncFromCloud(false);
@@ -1229,16 +1298,33 @@
       e.preventDefault();
       await syncFromCloud(false);
       appState.giftcodes.unshift({ code: document.getElementById("gf-code").value.trim().toUpperCase(), amount: Number(document.getElementById("gf-amount").value), usesLeft: Number(document.getElementById("gf-uses").value), usedBy: [] });
-      await pushToCloud(); e.target.reset(); renderAll(false); showToast("✅ Đã tạo Giftcode!");
+      await pushToCloud(); e.target.reset(); renderAll(false);
+      showToast("✅ Đã tạo Giftcode!");
     }
-    async function adminDeleteGiftcode(code) { await syncFromCloud(false); appState.giftcodes = appState.giftcodes.filter(g => g.code !== code); await pushToCloud(); renderAll(false); }
 
-    async function adminAdjustBalance(uname, delta) {
+    async function adminDeleteGiftcode(code) {
+      await syncFromCloud(false);
+      appState.giftcodes = appState.giftcodes.filter(g => g.code !== code);
+      await pushToCloud(); renderAll(false);
+    }
+
+    // CỘNG / TRỪ TIỀN TỰ DO
+    async function adminCustomAdjust(uname, sign) {
+      const inp = document.getElementById("custom-amt-" + uname);
+      const val = Number(inp ? inp.value : 0);
+      if (!val || val <= 0) {
+        showToast("⚠️ Vui lòng nhập số tiền hợp lệ lớn hơn 0!");
+        return;
+      }
+      const delta = val * sign;
       await syncFromCloud(false);
       if (!appState.users[uname]) return;
       appState.users[uname].balance = Math.max(0, (appState.users[uname].balance || 0) + delta);
-      addBalanceLog(uname, delta, "Admin điều chỉnh số dư");
-      await pushToCloud(); renderAll(false); showToast(`Đã cập nhật số dư cho ${uname}!`);
+      addBalanceLog(uname, delta, sign > 0 ? "Admin cộng tiền" : "Admin trừ tiền");
+      await pushToCloud();
+      if (inp) inp.value = "";
+      renderAll(false);
+      showToast(`✅ Đã ${sign > 0 ? 'cộng' : 'trừ'} ${formatMoney(val)} cho ${uname}!`);
     }
 
     async function saveWheelSettings(e) {
@@ -1251,7 +1337,8 @@
         weight: Math.max(0, Number(document.getElementById(`prz-weight-${idx}`).value) || 0),
         color: p.color
       }));
-      await pushToCloud(); adminSettingsLoaded = false; renderAll(true); showToast("✅ Đã lưu tỷ lệ vòng quay!");
+      await pushToCloud(); adminSettingsLoaded = false; renderAll(true);
+      showToast("✅ Đã lưu tỷ lệ vòng quay!");
     }
 
     async function saveAdminSettings(e) {
@@ -1266,7 +1353,8 @@
       appState.settings.ejsTemplate = document.getElementById("cfg-ejs-template").value.trim();
       appState.settings.ejsKey = document.getElementById("cfg-ejs-key").value.trim();
       appState.settings.gscCode = document.getElementById("cfg-gsc-code").value.trim();
-      await pushToCloud(); adminSettingsLoaded = false; renderAll(true); showToast("✅ Đã lưu toàn bộ cấu hình lên Firebase!");
+      await pushToCloud(); adminSettingsLoaded = false; renderAll(true);
+      showToast("✅ Đã lưu toàn bộ cấu hình lên Firebase!");
     }
 
     syncFromCloud(true);

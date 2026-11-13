@@ -70,7 +70,7 @@
         <div class="max-w-2xl space-y-4">
           <span class="inline-block px-3 py-1 rounded-full text-xs font-bold bg-sky-500/20 text-sky-300 border border-sky-400/30">HỆ THỐNG BÁN ACC • TÚI MÙ • CÀY THUÊ TỰ ĐỘNG</span>
           <h2 class="text-2xl sm:text-4xl font-extrabold leading-tight text-white">Chào mừng đến với <span class="text-sky-400">TTMShop</span> — Giao dịch siêu tốc, hỗ trợ 24/7!</h2>
-          <p class="text-slate-300 text-sm sm:text-base leading-relaxed">Trải nghiệm xé Túi Mù nhận tài khoản VIP ngẫu nhiên, nạp tiền qua ngân hàng QR & thẻ cào, đặt dịch vụ cày thuê và theo dõi mã đơn hàng minh bạch.</p>
+          <p class="text-slate-300 text-sm sm:text-base leading-relaxed">Mua lượt xé Túi Mù chọn 1 trong 6 túi bí ẩn nhận Acc VIP ngẫu nhiên, nạp tiền qua ngân hàng QR & thẻ cào, đặt dịch vụ cày thuê và theo dõi mã đơn hàng minh bạch.</p>
           <div class="flex flex-wrap gap-3 pt-2">
             <button onclick="switchTab('accounts')" class="px-5 py-2.5 rounded-xl bg-sky-500 hover:bg-sky-400 text-slate-950 font-bold text-sm transition shadow-lg">Mua Tài Khoản</button>
             <button onclick="switchTab('blindbag')" class="px-5 py-2.5 rounded-xl bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold text-sm transition shadow-lg">🎁 Xé Túi Mù Ngay</button>
@@ -122,14 +122,14 @@
       <div id="all-accounts-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5"></div>
     </section>
 
-    <!-- TAB: BLIND BAG (TÚI MÙ - MỖI Ô 6 TÚI NGẪU NHIÊN) -->
+    <!-- TAB: BLIND BAG (BẤM MUA Ô TÚI -> HIỆN 6 TÚI -> CHỈ ĐƯỢC CHỌN 1 TRONG 6 TÚI) -->
     <section id="tab-blindbag" class="tab-section hidden space-y-6">
       <div>
-        <span class="px-3 py-1 rounded-full text-xs font-bold bg-amber-500/20 text-amber-300 border border-amber-500/30">NHÂN PHẨM NGẪU NHIÊN 100%</span>
+        <span class="px-3 py-1 rounded-full text-xs font-bold bg-amber-500/20 text-amber-300 border border-amber-500/30">MUA Ô TÚI • CHỌN 1 TRONG 6 TÚI</span>
         <h2 class="text-2xl font-extrabold text-white mt-2">Danh Mục Túi Mù Bí Ẩn</h2>
-        <p class="text-xs text-slate-400 mt-1">Mỗi ô gồm 6 túi mù được hệ thống xáo trộn ngẫu nhiên (tối đa 1 acc/túi). Chọn 1 túi bất kỳ để xé ngay!</p>
+        <p class="text-xs text-slate-400 mt-1">Chọn ô túi mù muốn chơi và bấm <strong>Mua Lượt Xé</strong>. Hệ thống sẽ bày ra 6 túi ngẫu nhiên (mỗi túi tối đa 1 acc) và bạn chỉ được chọn 1 trong 6 túi đó!</p>
       </div>
-      <div id="blindbag-tiers-container" class="space-y-8"></div>
+      <div id="blindbag-tiers-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"></div>
     </section>
 
     <!-- TAB: BOOSTING / CÀY THUÊ & NẠP GAME -->
@@ -182,10 +182,9 @@
       </div>
     </section>
 
-    <!-- TAB: TOPUP (BANK + CARD VỚI CHIẾT KHẤU + GIFTCODE) -->
+    <!-- TAB: TOPUP -->
     <section id="tab-topup" class="tab-section hidden space-y-6">
       <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
-        <!-- CỘT 1: NGÂN HÀNG -->
         <div class="glass-card rounded-2xl p-6 space-y-4">
           <h3 class="text-lg font-bold text-sky-400">1. Nạp Qua Ngân Hàng / QR (0% Phí)</h3>
           <div class="bg-slate-900/90 p-4 rounded-xl border border-slate-800 space-y-2 text-xs sm:text-sm">
@@ -204,7 +203,6 @@
           </form>
         </div>
 
-        <!-- CỘT 2: THẺ CÀO CÓ CHIẾT KHẤU -->
         <div class="glass-card rounded-2xl p-6 space-y-4">
           <h3 class="text-lg font-bold text-amber-400">2. Nạp Thẻ Cào Điện Thoại</h3>
           <p class="text-xs text-slate-400">Hệ thống tự động trừ chiết khấu nhà mạng theo cấu hình của Shop.</p>
@@ -240,7 +238,6 @@
           </form>
         </div>
 
-        <!-- CỘT 3: GIFTCODE & LỊCH SỬ MÃ ĐƠN NẠP -->
         <div class="glass-card rounded-2xl p-6 space-y-5">
           <div class="space-y-3">
             <h3 class="text-lg font-bold text-purple-400">3. Nhập Mã Giftcode</h3>
@@ -257,7 +254,7 @@
       </div>
     </section>
 
-    <!-- TAB: USER ACCOUNT (MÃ ĐƠN HÀNG + TÚI MÙ + BIẾN ĐỘNG SỐ DƯ) -->
+    <!-- TAB: USER ACCOUNT -->
     <section id="tab-history" class="tab-section hidden space-y-6">
       <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
         <div class="lg:col-span-2 space-y-6">
@@ -291,7 +288,7 @@
       <div class="flex flex-wrap items-center justify-between gap-3 bg-amber-500/10 border border-amber-500/30 p-4 rounded-2xl">
         <div>
           <h2 class="text-xl font-extrabold text-amber-400">Bảng Quản Trị Toàn Diện TTMShop</h2>
-          <p class="text-xs text-slate-300">Quản lý kho acc, túi mù (tự chia 6 túi ngẫu nhiên), chiết khấu thẻ cào, dịch vụ và cộng/trừ tiền tự do.</p>
+          <p class="text-xs text-slate-300">Quản lý kho acc, túi mù (mua lượt → chọn 1 trong 6 túi), chiết khấu thẻ cào, dịch vụ và cộng/trừ tiền tự do.</p>
         </div>
         <button onclick="logoutAdmin()" class="px-4 py-2 rounded-xl bg-rose-600 hover:bg-rose-500 text-white text-xs font-bold">Thoát Admin</button>
       </div>
@@ -352,35 +349,33 @@
         </div>
       </div>
 
-      <!-- SUB-TAB 2: BLIND BAG MANAGEMENT (TÚI MÙ) -->
+      <!-- SUB-TAB 2: BLIND BAG MANAGEMENT -->
       <div id="admin-panel-blindbag" class="admin-panel hidden space-y-6">
         <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
-          <!-- TẠO / SỬA Ô TÚI MÙ -->
           <form onsubmit="adminSaveBlindTier(event)" class="glass-card p-5 rounded-2xl space-y-3">
             <input type="hidden" id="edit-btier-id" value="" />
             <div class="flex justify-between items-center">
-              <h3 class="text-base font-bold text-amber-400" id="btier-form-title">+ Tạo Ô Túi Mù Mới (Mỗi ô hiển thị 6 túi)</h3>
+              <h3 class="text-base font-bold text-amber-400" id="btier-form-title">+ Tạo Ô Túi Mù Mới (1 Ô = 6 Túi Chọn 1)</h3>
               <button type="button" id="cancel-btier-btn" onclick="resetBlindTierForm()" class="hidden text-xs text-rose-400">Hủy sửa</button>
             </div>
             <div>
-              <label class="block text-xs text-slate-400 mb-1">Tên Ô Túi Mù (VD: Túi Mù Liên Quân 20K)</label>
+              <label class="block text-xs text-slate-400 mb-1">Tên Ô Túi Mù (VD: Túi Mù Liên Quân 19K)</label>
               <input type="text" id="btier-name" required class="w-full px-3 py-2 rounded-xl bg-slate-900 border border-slate-700 text-sm text-white" />
             </div>
             <div>
-              <label class="block text-xs text-slate-400 mb-1">Giá mỗi lần mở 1 túi (VNĐ)</label>
+              <label class="block text-xs text-slate-400 mb-1">Giá mỗi lượt mua ô túi (VNĐ)</label>
               <input type="number" id="btier-price" required min="1000" class="w-full px-3 py-2 rounded-xl bg-slate-900 border border-slate-700 text-sm text-white" />
             </div>
             <div>
-              <label class="block text-xs text-slate-400 mb-1">Mô tả phần thưởng có thể trúng trong ô này</label>
-              <input type="text" id="btier-desc" required placeholder="VD: 100% có Acc trắng thông tin, cơ hội nổ Acc VIP 50+ Skin..." class="w-full px-3 py-2 rounded-xl bg-slate-900 border border-slate-700 text-sm text-white" />
+              <label class="block text-xs text-slate-400 mb-1">Mô tả phần thưởng trong ô túi này</label>
+              <input type="text" id="btier-desc" required placeholder="VD: Bấm mua sẽ hiện 6 túi mù bí ẩn, chọn 1 trong 6 túi để nhận acc VIP..." class="w-full px-3 py-2 rounded-xl bg-slate-900 border border-slate-700 text-sm text-white" />
             </div>
             <button type="submit" id="submit-btier-btn" class="px-5 py-2.5 rounded-xl bg-amber-500 text-slate-950 font-bold text-xs">+ Tạo Ô Túi Mù</button>
           </form>
 
-          <!-- NHÉT ACC VÀO KHO TÚI MÙ -->
           <form onsubmit="adminAddAccToBlindTier(event)" class="glass-card p-5 rounded-2xl space-y-3">
             <h3 class="text-base font-bold text-sky-400">+ Nhét Tài Khoản Vào Kho Túi Mù</h3>
-            <p class="text-xs text-slate-400">Hệ thống sẽ tự động xáo trộn ngẫu nhiên các acc này vào 6 túi của ô tương ứng (tối đa 1 acc/túi).</p>
+            <p class="text-xs text-slate-400">Hệ thống tự động xáo trộn ngẫu nhiên các acc này vào 6 túi khi người chơi mua lượt (tối đa 1 acc/túi).</p>
             <div>
               <label class="block text-xs text-slate-400 mb-1">Chọn Ô Túi Mù muốn nạp acc</label>
               <select id="bacc-tier-select" required class="w-full px-3 py-2 rounded-xl bg-slate-900 border border-slate-700 text-sm text-white"></select>
@@ -420,7 +415,7 @@
         <div class="glass-card p-5 rounded-2xl space-y-3"><h3 class="text-base font-bold text-amber-400">Đơn Hàng Khách Đã Đặt (#cay / #napgame)</h3><div id="admin-boost-orders-list" class="space-y-2"></div></div>
       </div>
 
-      <!-- SUB-TAB 4: TOPUP & CARD DISCOUNT CONFIG -->
+      <!-- SUB-TAB 4: TOPUP & CARD DISCOUNT -->
       <div id="admin-panel-topup" class="admin-panel hidden space-y-6">
         <form onsubmit="adminSaveCardDiscounts(event)" class="glass-card p-5 rounded-2xl space-y-4">
           <div>
@@ -498,6 +493,39 @@
       </div>
     </section>
   </main>
+
+  <!-- BLIND BAG PICKER MODAL (HIỆN 6 TÚI SAU KHI MUA LƯỢT, CHỈ CHỌN ĐÚNG 1 TÚI) -->
+  <div id="blindbag-picker-modal" class="fixed inset-0 z-50 hidden bg-black/80 backdrop-blur-sm flex items-center justify-center p-4">
+    <div class="glass-card w-full max-w-2xl rounded-2xl p-6 space-y-5 border border-amber-500/40 relative">
+      <div class="flex justify-between items-start gap-2 border-b border-slate-800 pb-3">
+        <div>
+          <span class="px-2.5 py-0.5 rounded bg-amber-500/20 text-amber-300 text-[11px] font-bold">ĐÃ THANH TOÁN LƯỢT CHƠI</span>
+          <h3 class="text-lg font-extrabold text-white mt-1" id="picker-tier-title">Chọn 1 Trong 6 Túi Mù Bí Ẩn</h3>
+          <p class="text-xs text-slate-400" id="picker-instruction">Hệ thống đã sắp xếp ngẫu nhiên tối đa 1 acc vào mỗi túi. Bạn chỉ được chọn 1 túi duy nhất!</p>
+        </div>
+        <button id="picker-close-btn" onclick="closeBlindPickerModal()" class="hidden text-slate-400 hover:text-white text-lg">✕</button>
+      </div>
+
+      <!-- LƯỚI 6 TÚI MÙ -->
+      <div id="picker-6-bags-grid" class="grid grid-cols-2 sm:grid-cols-3 gap-4"></div>
+
+      <!-- KẾT QUẢ SAU KHI XÉ 1 TÚI -->
+      <div id="picker-result-box" class="hidden p-4 rounded-xl bg-slate-900 border border-emerald-500/40 space-y-3">
+        <div class="flex justify-between items-center">
+          <span class="font-bold text-emerald-400 text-sm">🎉 Chúc mừng bạn đã xé trúng tài khoản!</span>
+          <span class="font-mono text-xs text-sky-400 font-bold" id="picker-order-code">#tuimu101</span>
+        </div>
+        <div class="p-3 rounded-lg bg-slate-950 font-mono text-xs text-white space-y-1 select-all">
+          <p>Tài khoản: <strong class="text-amber-300" id="picker-won-user"></strong></p>
+          <p>Mật khẩu / Info: <strong class="text-emerald-400" id="picker-won-pass"></strong></p>
+        </div>
+        <div class="flex flex-wrap gap-2 pt-1">
+          <button type="button" onclick="buyAnotherFromModal()" class="px-4 py-2 rounded-xl bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold text-xs">Mua Lượt Xé Tiếp</button>
+          <button type="button" onclick="closeBlindPickerModal()" class="px-4 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-white font-semibold text-xs">Đóng Lại</button>
+        </div>
+      </div>
+    </div>
+  </div>
 
   <!-- FLOATING LIVE CHAT -->
   <div class="fixed bottom-5 right-5 z-40">
@@ -582,23 +610,17 @@
         gscCode: "CJnbeOW7Fg2Z0fwY8_CQncD1C-W01CvhJtetKJMUqm0",
         spinCost: 20000
       },
-      cardDiscounts: {
-        Viettel: 20,
-        Mobifone: 18,
-        Vinaphone: 16,
-        Zing: 15,
-        Garena: 15
-      },
+      cardDiscounts: { Viettel: 20, Mobifone: 18, Vinaphone: 16, Zing: 15, Garena: 15 },
       categories: ["Liên Quân", "Free Fire", "Roblox", "Valorant", "Khác"],
       blindTiers: [
         {
           id: "TIER1",
-          name: "Túi Mù Thử Vận May 20K",
-          price: 20000,
-          desc: "Mỗi túi chứa ngẫu nhiên 1 tài khoản game trắng thông tin, tỷ lệ nổ Acc VIP cực cao!",
+          name: "Ô Túi Mù Thử Vận May 19K",
+          price: 19000,
+          desc: "Bấm mua ô này sẽ hiện ra 6 túi mù bí ẩn — Chọn 1 trong 6 túi để nhận ngay 1 Acc trắng thông tin!",
           pool: [
-            { id: "BA1", gameUser: "tuimu20k_user01", gamePass: "Pass@2026 | Trang thong tin", sold: false, buyer: "", orderCode: "" },
-            { id: "BA2", gameUser: "tuimu20k_user02", gamePass: "Pass@2026 | Trang thong tin", sold: false, buyer: "", orderCode: "" }
+            { id: "BA1", gameUser: "tuimu19k_user01", gamePass: "Pass@2026 | Trang thong tin", sold: false, buyer: "", orderCode: "" },
+            { id: "BA2", gameUser: "tuimu19k_user02", gamePass: "Pass@2026 | Trang thong tin", sold: false, buyer: "", orderCode: "" }
           ]
         }
       ],
@@ -612,7 +634,7 @@
       ],
       accounts: [
         {
-          id: "acc101",
+          id: "#acc101",
           category: "Liên Quân",
           title: "Acc Liên Quân 115 Tướng - 180 Skin",
           desc: "Rank Tinh Anh, nhiều skin bậc SS hữu hạn, trắng thông tin đổi mật khẩu ngay.",
@@ -646,6 +668,9 @@
     let adminSettingsLoaded = false;
     let generatedOTP = "", otpTargetEmail = "";
 
+    // PHIÊN CHƠI TÚI MÙ HIỆN TẠI (MUA XONG MỚI HIỆN 6 TÚI, CHỈ ĐƯỢC CHỌN 1)
+    let activeBlindSession = null; // { tierId, tierName, tierPrice, chosenSlot, resultAcc, orderCode }
+
     function showToast(msg) {
       const t = document.getElementById("toast");
       t.textContent = msg;
@@ -656,7 +681,6 @@
 
     function formatMoney(num) { return Number(num || 0).toLocaleString("vi-VN") + "đ"; }
 
-    // TẠO MÃ ĐƠN HÀNG TỰ ĐỘNG (#acc123, #cay123, #napgame123, #nap123, #tuimu123)
     function nextOrderCode(prefix) {
       appState.orderCounter = (Number(appState.orderCounter) || 100) + 1;
       return `#${prefix}${appState.orderCounter}`;
@@ -738,7 +762,7 @@
       renderStats();
       renderCategoriesUI();
       renderAccounts();
-      renderBlindBags();
+      renderBlindBagTiers();
       renderBoosting();
       renderTopupInfo();
       renderHistory();
@@ -822,8 +846,8 @@
       document.getElementById("all-accounts-grid").innerHTML = filtered.map(createAccountCard).join("") || `<p class="text-xs text-slate-400">Không tìm thấy tài khoản phù hợp.</p>`;
     }
 
-    // TÚI MÙ (MỖI Ô HIỂN THỊ 6 TÚI NGẪU NHIÊN, TỐI ĐA 1 ACC/TÚI)
-    function renderBlindBags() {
+    // CƠ CHẾ TÚI MÙ: HIỂN THỊ CÁC Ô -> BẤM MUA MỚI HIỆN 6 TÚI -> CHỈ ĐƯỢC CHỌN 1 TÚI
+    function renderBlindBagTiers() {
       const container = document.getElementById("blindbag-tiers-container");
       const tiers = appState.blindTiers || [];
       if (!tiers.length) {
@@ -832,80 +856,143 @@
       }
 
       container.innerHTML = tiers.map(tier => {
-        const availPool = (tier.pool || []).filter(item => !item.sold);
-        const availCount = availPool.length;
-        // Mỗi ô luôn hiển thị 6 túi cho người chơi chọn
-        const bagsHtml = [1, 2, 3, 4, 5, 6].map(slotNum => {
-          const isAvailable = availCount >= slotNum;
-          return `
-            <div class="p-4 rounded-2xl bg-slate-900/90 border ${isAvailable ? 'border-amber-500/40 hover:border-amber-400 hover:-translate-y-1' : 'border-slate-800 opacity-50'} transition flex flex-col items-center text-center space-y-2.5">
-              <div class="w-14 h-14 rounded-2xl bg-gradient-to-br from-amber-500/20 to-orange-600/20 border border-amber-400/30 flex items-center justify-center text-2xl">
-                🎁
-              </div>
-              <div>
-                <p class="font-extrabold text-white text-sm">Túi Mù #${slotNum}</p>
-                <p class="text-[11px] text-amber-400 font-bold">${formatMoney(tier.price)}</p>
-              </div>
-              ${isAvailable
-                ? `<button onclick="openBlindBag('${tier.id}', ${slotNum})" class="w-full py-2 rounded-xl bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-400 hover:to-orange-400 text-slate-950 font-extrabold text-xs shadow">Xé Túi Ngay</button>`
-                : `<span class="w-full py-2 rounded-xl bg-slate-800 text-slate-500 text-xs font-bold">Hết Túi</span>`}
-            </div>`;
-        }).join("");
-
+        const availCount = (tier.pool || []).filter(p => !p.sold).length;
         return `
-          <div class="glass-card rounded-2xl p-6 space-y-5 border border-amber-500/20">
-            <div class="flex flex-wrap justify-between items-start gap-3 border-b border-slate-800 pb-4">
-              <div>
-                <div class="flex items-center gap-2">
-                  <h3 class="text-xl font-extrabold text-amber-400">${tier.name}</h3>
-                  <span class="px-2.5 py-0.5 rounded-full bg-emerald-500/20 text-emerald-400 text-xs font-bold">Còn ${availCount} acc trong kho</span>
+          <div class="glass-card rounded-2xl p-6 flex flex-col justify-between space-y-5 border border-amber-500/30 hover:border-amber-400 transition">
+            <div class="space-y-3">
+              <div class="flex items-center justify-between">
+                <span class="px-2.5 py-1 rounded-lg bg-amber-500/20 text-amber-300 text-[11px] font-bold">1 Ô = 6 TÚI (CHỌN 1)</span>
+                <span class="text-xs font-bold ${availCount > 0 ? 'text-emerald-400' : 'text-rose-400'}">Còn ${availCount} acc trong kho</span>
+              </div>
+              <div class="flex items-center gap-3 pt-1">
+                <div class="w-14 h-14 rounded-2xl bg-gradient-to-br from-amber-400 to-orange-600 flex items-center justify-center text-2xl shadow-lg">🎁</div>
+                <div>
+                  <h3 class="text-lg font-extrabold text-white">${tier.name}</h3>
+                  <p class="text-xl font-extrabold text-amber-400">${formatMoney(tier.price)}</p>
                 </div>
-                <p class="text-xs text-slate-300 mt-1">${tier.desc}</p>
               </div>
-              <div class="text-right">
-                <p class="text-xs text-slate-400">Giá mở 1 túi</p>
-                <p class="text-xl font-extrabold text-white">${formatMoney(tier.price)}</p>
-              </div>
+              <p class="text-xs text-slate-300 leading-relaxed bg-slate-900/80 p-3 rounded-xl border border-slate-800">${tier.desc}</p>
             </div>
-            <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-4">
-              ${bagsHtml}
+
+            <div>
+              ${availCount > 0
+                ? `<button onclick="purchaseBlindBoxTurn('${tier.id}')" class="w-full py-3 rounded-xl bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-400 hover:to-orange-400 text-slate-950 font-extrabold text-sm shadow-lg transition">Mua Ô Túi (${formatMoney(tier.price)})</button>`
+                : `<button disabled class="w-full py-3 rounded-xl bg-slate-800 text-slate-500 font-bold text-xs cursor-not-allowed">Đã Hết Hàng Trong Kho</button>`}
             </div>
           </div>`;
       }).join("");
     }
 
-    async function openBlindBag(tierId, slotNum) {
-      if (!currentUser || !appState.users[currentUser]) { openAuthModal(); showToast("Vui lòng đăng nhập để xé túi mù!"); return; }
+    async function purchaseBlindBoxTurn(tierId) {
+      if (!currentUser || !appState.users[currentUser]) { openAuthModal(); showToast("Vui lòng đăng nhập để mua túi mù!"); return; }
       await syncFromCloud(false);
       const tier = (appState.blindTiers || []).find(t => t.id === tierId);
       if (!tier) return;
-      const availPool = (tier.pool || []).filter(item => !item.sold);
-      if (availPool.length < slotNum) { showToast("Túi mù này vừa hết hàng!"); renderAll(false); return; }
+      const availPool = (tier.pool || []).filter(p => !p.sold);
+      if (!availPool.length) { showToast("Ô túi mù này đã hết hàng!"); renderAll(false); return; }
 
       const user = appState.users[currentUser];
-      if (user.balance < tier.price) { showToast("❌ Số dư không đủ để xé túi mù!"); switchTab("topup"); return; }
-      if (!confirm(`Xác nhận mở Túi Mù #${slotNum} (${tier.name}) với giá ${formatMoney(tier.price)}?`)) return;
+      if (user.balance < tier.price) { showToast("❌ Số dư không đủ để mua ô túi mù!"); switchTab("topup"); return; }
+      if (!confirm(`Xác nhận mua 1 lượt mở "${tier.name}" giá ${formatMoney(tier.price)}?\nSau khi mua sẽ hiện 6 túi và bạn chỉ được chọn 1 trong 6 túi!`)) return;
 
-      // Hệ thống tự chọn ngẫu nhiên 1 acc trong kho (tối đa 1 acc/túi)
-      const randomIdx = Math.floor(Math.random() * availPool.length);
-      const chosenAcc = availPool[randomIdx];
+      // Hệ thống bí mật chọn ngẫu nhiên 1 acc trong kho và khóa ngay cho lượt chơi này (Admin cũng không biết trước)
+      const randIdx = Math.floor(Math.random() * availPool.length);
+      const wonAcc = availPool[randIdx];
       const orderCode = nextOrderCode("tuimu");
 
       user.balance -= tier.price;
-      chosenAcc.sold = true;
-      chosenAcc.buyer = currentUser;
-      chosenAcc.orderCode = orderCode;
-      chosenAcc.tierName = tier.name;
-      chosenAcc.soldAt = new Date().toLocaleString("vi-VN");
+      wonAcc.sold = true;
+      wonAcc.buyer = currentUser;
+      wonAcc.orderCode = orderCode;
+      wonAcc.tierName = tier.name;
+      wonAcc.soldAt = new Date().toLocaleString("vi-VN");
 
-      addBalanceLog(currentUser, -tier.price, `Xé ${tier.name} (Đơn ${orderCode})`);
+      addBalanceLog(currentUser, -tier.price, `Mua ${tier.name} (Đơn ${orderCode})`);
       await pushToCloud();
       renderAll(false);
-      showToast(`🎉 Xé túi thành công! Mã đơn ${orderCode} - Xem acc trong mục Tài Khoản!`);
-      switchTab("history");
+
+      // Mở giao diện 6 túi để người chơi bấm chọn 1 trong 6 túi
+      activeBlindSession = {
+        tierId: tier.id,
+        tierName: tier.name,
+        tierPrice: tier.price,
+        chosenSlot: null,
+        resultAcc: wonAcc,
+        orderCode: orderCode
+      };
+      renderBlindPickerModal();
+      document.getElementById("blindbag-picker-modal").classList.remove("hidden");
     }
 
-    // DỊCH VỤ CÀY THUÊ & NẠP GAME (#cay / #napgame)
+    function renderBlindPickerModal() {
+      if (!activeBlindSession) return;
+      const { tierName, chosenSlot, resultAcc, orderCode } = activeBlindSession;
+      document.getElementById("picker-tier-title").textContent = `${tierName} — Chọn 1 Trong 6 Túi`;
+
+      const isPicked = chosenSlot !== null;
+      document.getElementById("picker-close-btn").classList.toggle("hidden", !isPicked);
+      document.getElementById("picker-result-box").classList.toggle("hidden", !isPicked);
+      document.getElementById("picker-instruction").textContent = isPicked
+        ? "Bạn đã chọn xong 1 túi! 5 túi còn lại đã được khóa lại."
+        : "Hệ thống đã sắp xếp ngẫu nhiên tối đa 1 acc vào mỗi túi. Hãy chạm vào 1 trong 6 túi bên dưới!";
+
+      document.getElementById("picker-6-bags-grid").innerHTML = [1, 2, 3, 4, 5, 6].map(slot => {
+        if (!isPicked) {
+          return `
+            <button type="button" onclick="pickOneOfSixBags(${slot})" class="p-4 rounded-2xl bg-slate-900 border border-amber-500/40 hover:border-amber-400 hover:bg-slate-800 hover:-translate-y-1 transition flex flex-col items-center space-y-2">
+              <span class="text-3xl">🎁</span>
+              <span class="font-extrabold text-white text-sm">Túi Số #${slot}</span>
+              <span class="px-3 py-1 rounded-lg bg-amber-500 text-slate-950 font-bold text-[11px]">Bấm Chọn Túi</span>
+            </button>`;
+        } else if (slot === chosenSlot) {
+          return `
+            <div class="p-4 rounded-2xl bg-emerald-500/15 border-2 border-emerald-400 flex flex-col items-center space-y-1.5">
+              <span class="text-3xl">🎊</span>
+              <span class="font-extrabold text-emerald-400 text-sm">Túi Số #${slot} (Đã Chọn)</span>
+              <span class="text-[11px] text-white font-bold">Đã mở thành công!</span>
+            </div>`;
+        } else {
+          return `
+            <div class="p-4 rounded-2xl bg-slate-950/70 border border-slate-800 opacity-40 flex flex-col items-center space-y-1.5">
+              <span class="text-3xl">🔒</span>
+              <span class="font-bold text-slate-500 text-sm">Túi Số #${slot}</span>
+              <span class="text-[11px] text-slate-600">Đã khóa</span>
+            </div>`;
+        }
+      }).join("");
+
+      if (isPicked) {
+        document.getElementById("picker-order-code").textContent = orderCode;
+        document.getElementById("picker-won-user").textContent = resultAcc.gameUser;
+        document.getElementById("picker-won-pass").textContent = resultAcc.gamePass;
+      }
+    }
+
+    function pickOneOfSixBags(slot) {
+      if (!activeBlindSession || activeBlindSession.chosenSlot !== null) return;
+      activeBlindSession.chosenSlot = slot;
+      renderBlindPickerModal();
+      showToast(`🎉 Bạn đã chọn Túi #${slot}! Acc đã được lưu vào mục Tài Khoản.`);
+    }
+
+    function closeBlindPickerModal() {
+      if (activeBlindSession && activeBlindSession.chosenSlot === null) {
+        showToast("⚠️ Bạn hãy chọn 1 trong 6 túi trước khi đóng!");
+        return;
+      }
+      activeBlindSession = null;
+      document.getElementById("blindbag-picker-modal").classList.add("hidden");
+    }
+
+    function buyAnotherFromModal() {
+      if (!activeBlindSession) return;
+      const tierId = activeBlindSession.tierId;
+      activeBlindSession = null;
+      document.getElementById("blindbag-picker-modal").classList.add("hidden");
+      purchaseBlindBoxTurn(tierId);
+    }
+
+    // DỊCH VỤ CÀY THUÊ & NẠP GAME
     function renderBoosting() {
       const grid = document.getElementById("boost-services-grid");
       const sel = document.getElementById("order-boost-service");
@@ -941,15 +1028,11 @@
       user.balance -= svc.price;
       addBalanceLog(currentUser, -svc.price, `Đặt ${svc.name} (Đơn ${orderCode})`);
       appState.boostOrders.push({
-        id: orderCode,
-        user: currentUser,
-        serviceName: svc.name,
-        price: svc.price,
+        id: orderCode, user: currentUser, serviceName: svc.name, price: svc.price,
         gameUser: document.getElementById("order-boost-user").value.trim(),
         gamePass: document.getElementById("order-boost-pass").value.trim(),
         note: document.getElementById("order-boost-note").value.trim(),
-        status: "Đang xử lý",
-        time: new Date().toLocaleString("vi-VN")
+        status: "Đang xử lý", time: new Date().toLocaleString("vi-VN")
       });
       await pushToCloud(); e.target.reset(); renderAll(false);
       showToast(`✅ Đặt đơn thành công! Mã đơn: ${orderCode}`); switchTab("history");
@@ -1035,7 +1118,6 @@
       document.getElementById("display-transfer-note").textContent = currentUser ? `NAP ${currentUser}` : "NAP TTM";
       if (s.qrUrl) document.getElementById("display-qr-img").src = s.qrUrl;
 
-      // Render dropdown nhà mạng kèm % chiết khấu
       const telcoSel = document.getElementById("card-telco");
       const curTelco = telcoSel.value || "Viettel";
       const discs = appState.cardDiscounts || DEFAULT_STATE.cardDiscounts;
@@ -1093,15 +1175,10 @@
       const orderCode = nextOrderCode("nap");
 
       appState.topups.push({
-        id: orderCode,
-        method: `Thẻ ${telco} (-${discPct}%)`,
-        user: currentUser,
-        faceAmount: faceVal,
-        netAmount: netVal,
-        amount: netVal,
+        id: orderCode, method: `Thẻ ${telco} (-${discPct}%)`, user: currentUser,
+        faceAmount: faceVal, netAmount: netVal, amount: netVal,
         note: `Mệnh giá ${formatMoney(faceVal)} → Thực nhận ${formatMoney(netVal)} | Seri: ${document.getElementById("card-serial").value.trim()} | PIN: ${document.getElementById("card-pin").value.trim()}`,
-        status: "PENDING",
-        time: new Date().toLocaleString("vi-VN")
+        status: "PENDING", time: new Date().toLocaleString("vi-VN")
       });
       await pushToCloud(); e.target.reset(); renderTopupInfo();
       showToast(`✅ Đã gửi thẻ cào! Mã đơn: ${orderCode} (Thực nhận ${formatMoney(netVal)})`);
@@ -1221,7 +1298,7 @@
       await pushToCloud(); input.value = ""; renderChat();
     }
 
-    // VÒNG QUAY MAY MẮN
+    // VÒNG QUAY
     let currentDeg = 0, isSpinning = false;
     function drawWheel() {
       const canvas = document.getElementById("wheel-canvas");
@@ -1313,7 +1390,6 @@
       document.getElementById("adm-pending-topup").textContent = pendingCount;
       document.getElementById("adm-total-users").textContent = Object.keys(appState.users).length;
 
-      // 1. Danh mục & Kho Acc
       document.getElementById("admin-cat-list").innerHTML = (appState.categories || []).map((c, i) => `
         <span class="inline-flex items-center gap-2 px-3 py-1.5 rounded-xl bg-slate-900 border border-slate-700 text-xs text-white">
           <strong>${c}</strong><button type="button" onclick="adminDeleteCategory(${i})" class="text-rose-400 font-bold">✕</button>
@@ -1328,7 +1404,6 @@
           </div>
         </div>`).join("") || `<p class="text-xs text-slate-500">Kho acc đang trống.</p>`;
 
-      // 2. Túi Mù Admin
       const bSelect = document.getElementById("bacc-tier-select");
       const curBSelect = bSelect.value;
       bSelect.innerHTML = (appState.blindTiers || []).map(t => `<option value="${t.id}">${t.name} (${formatMoney(t.price)})</option>`).join("") || `<option value="">Hãy tạo ô túi mù trước</option>`;
@@ -1341,9 +1416,9 @@
           <div class="p-4 rounded-xl bg-slate-900 border border-slate-800 space-y-2 text-xs">
             <div class="flex flex-wrap justify-between items-center gap-2">
               <div>
-                <span class="font-bold text-amber-400 text-sm">${t.name}</span> — <span class="text-white font-bold">${formatMoney(t.price)}/túi</span>
+                <span class="font-bold text-amber-400 text-sm">${t.name}</span> — <span class="text-white font-bold">${formatMoney(t.price)}/lượt</span>
                 <p class="text-slate-400">${t.desc}</p>
-                <p class="text-emerald-400 mt-1">Kho hiện tại: <strong>${avail} acc chưa mở</strong> • Đã mở: ${sold} túi</p>
+                <p class="text-emerald-400 mt-1">Kho hiện tại: <strong>${avail} acc chưa mở</strong> • Đã mở: ${sold} lượt</p>
               </div>
               <div class="flex gap-2">
                 <button onclick="adminEditBlindTier('${t.id}')" class="px-3 py-1.5 rounded-lg bg-sky-600/20 text-sky-400 font-bold">Sửa Giá / Mô Tả</button>
@@ -1353,7 +1428,6 @@
           </div>`;
       }).join("") || `<p class="text-xs text-slate-500">Chưa có ô túi mù nào.</p>`;
 
-      // 3. Cày thuê & Nạp game
       document.getElementById("admin-boost-services-list").innerHTML = appState.boostServices.map(s => `
         <div class="p-3 rounded-xl bg-slate-900 border border-slate-800 flex justify-between items-center text-xs">
           <div><span class="font-bold text-white">[${s.type === 'napgame' ? '#napgame' : '#cay'}] ${s.name}</span> — <span class="text-amber-400 font-bold">${formatMoney(s.price)}</span><p class="text-slate-400">${s.desc}</p></div>
@@ -1373,7 +1447,6 @@
           </div>
         </div>`).join("") || `<p class="text-xs text-slate-500">Chưa có đơn hàng nào.</p>`;
 
-      // 4. Duyệt nạp & Chiết khấu thẻ
       document.getElementById("admin-topup-list").innerHTML = appState.topups.slice().reverse().map(t => {
         const net = Number(t.netAmount || t.amount);
         return `
@@ -1391,14 +1464,12 @@
           </div>`;
       }).join("") || `<p class="text-xs text-slate-500">Chưa có đơn nạp tiền nào.</p>`;
 
-      // 5. Giftcode
       document.getElementById("admin-gift-list").innerHTML = appState.giftcodes.map(g => `
         <div class="p-3 rounded-xl bg-slate-900 border border-slate-800 flex justify-between items-center text-xs">
           <div><span class="font-bold text-purple-400 font-mono text-sm">${g.code}</span> — Thưởng: <span class="text-emerald-400 font-bold">${formatMoney(g.amount)}</span> (Còn ${g.usesLeft} lượt)</div>
           <button onclick="adminDeleteGiftcode('${g.code}')" class="px-3 py-1 rounded bg-rose-600/20 text-rose-400 font-bold">Xóa</button>
         </div>`).join("") || `<p class="text-xs text-slate-500">Chưa có mã Giftcode nào.</p>`;
 
-      // 6. Thành viên (Cộng / Trừ tự do)
       const activeId = document.activeElement ? document.activeElement.id : "";
       if (!activeId.startsWith("custom-amt-")) {
         const savedVals = {};
@@ -1526,7 +1597,7 @@
 
     function resetBlindTierForm() {
       document.getElementById("edit-btier-id").value = "";
-      document.getElementById("btier-form-title").textContent = "+ Tạo Ô Túi Mù Mới (Mỗi ô hiển thị 6 túi)";
+      document.getElementById("btier-form-title").textContent = "+ Tạo Ô Túi Mù Mới (1 Ô = 6 Túi Chọn 1)";
       document.getElementById("submit-btier-btn").textContent = "+ Tạo Ô Túi Mù";
       document.getElementById("cancel-btier-btn").classList.add("hidden");
       document.querySelector("#admin-panel-blindbag form:first-of-type").reset();
